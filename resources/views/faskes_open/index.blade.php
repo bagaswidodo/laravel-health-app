@@ -40,9 +40,16 @@
                              <small>{{ $fo->jam_selesai_istirahat }} - {{ $fo->jam_tutup }}</small>
                          </td>
 
-                         <td>
+                         <td class="pull-right">
+                         <a href="{{ URL('faskes/' . $faskes->faskes_id . '/open/' .$fo->hari. '/edit') }}">
                             <button class="btn btn-success">Ubah Jadwal</button>
-                            <button class="btn btn-danger">Hapus Jadwal</button>
+                         </a>
+
+                          {!! Form::open(['url' => 'faskes/' . $faskes->faskes_id . '/open/' .$fo->hari , 'class' => 'pull-right']) !!}
+                                             {!! Form::hidden('_method', 'DELETE') !!}
+                                             {!! Form::submit('Hapus Data', ['class' => 'btn btn-danger']) !!}
+                                         {!! Form::close() !!}
+                            {{--<button class="btn btn-danger">Hapus Jadwal</button>--}}
                          </td>
                     </tr>
              <?php $i++; ?>

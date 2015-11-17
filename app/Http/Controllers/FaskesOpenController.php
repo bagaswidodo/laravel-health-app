@@ -108,9 +108,19 @@ class FaskesOpenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $hari)
     {
         //
+        //dd($request['hari']);
+       // $faskesOpen = $request->all();
+        $faskes = OFaskes::kodeFaskes($id)->hari($hari);
+        $faskesOpen['jam_buka'] = $request['jam_buka'];
+        $faskesOpen['jam_tutup'] = $request['jam_tutup'];
+        $faskesOpen['jam_mulai_istirahat'] = $request['jam_mulai_istirahat'];
+        $faskesOpen['jam_selesai_istirahat'] = $request['jam_selesai_istirahat'];
+        $faskes->update($faskesOpen);
+        return redirect('faskes')->with('message', 'Data berhasil dihapus!');
+
     }
 
     /**
@@ -119,8 +129,11 @@ class FaskesOpenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $hari)
     {
         //
+         OFaskes::kodeFaskes($id)->hari($hari)->delete();
+        return redirect('faskes')->with('message', 'Data berhasil dihapus!');
+
     }
 }

@@ -15,16 +15,19 @@
              <div class="form-group">
                  <div class="row">
                    <div class="col-xs-6">
-                     <input type="text" placeholder="Jam Buka" class="form-control" placeholder=""
-                     name="jam_buka" id="jam_buka" value="05:00">
+                  {!! Form::text('jam_buka',null,['class'=>'form-control','id'=>'jam_buka']) !!}
+                     {{--<input type="text" placeholder="Jam Buka" class="form-control" placeholder=""--}}
+                     {{--name="jam_buka" id="jam_buka" >--}}
                    </div>
                    <div class="col-xs-6">
-                     <input type="text" placeholder="Jam Tutup" class="form-control" placeholder=".col-xs-3"
-                     name="jam_tutup" id="jam_tutup" value="08:00" >
+                     {!! Form::text('jam_tutup',null,['class'=>'form-control','id'=>'jam_tutup']) !!}
+                     {{--<input type="text" placeholder="Jam Tutup" class="form-control" placeholder=".col-xs-3"--}}
+                     {{--name="jam_tutup" id="jam_tutup" >--}}
                    </div>
                  </div>
               </div>
              {{--end input jam hari dan praktek--}}
+             {{--bug : jika ada value praktek sore otomatis checked --}}
             <div class="checkbox">
                 <input type="checkbox" data-toggle="toggle" data-on="Praktek" data-off="Tidak Praktek"
                                    data-onstyle="info" data-offstyle="default" id="toggle-praktek">
@@ -33,12 +36,14 @@
              <div class="form-group">
                  <div class="row">
                    <div class="col-xs-6">
-                     <input type="text" placeholder="Jam Buka" class="form-control" placeholder=""
-                     name="jam_mulai_istirahat" id="jam_mulai_istirahat" value="05:00" disabled>
+                    {!! Form::text('jam_mulai_istirahat',null,['class'=>'form-control','id'=>'jam_mulai_istirahat','disabled']) !!}
+                     {{--<input type="text" placeholder="Jam Buka" class="form-control" placeholder=""--}}
+                     {{--name="jam_mulai_istirahat" id="jam_mulai_istirahat"  disabled>--}}
                    </div>
                    <div class="col-xs-6">
-                     <input type="text" placeholder="Jam Tutup" class="form-control" placeholder=".col-xs-3"
-                     name="jam_selesai_istirahat" id="jam_selesai_istirahat" value="08:00" disabled>
+                    {!! Form::text('jam_selesai_istirahat',null,['class'=>'form-control','id'=>'jam_selesai_istirahat','disabled']) !!}
+                     {{--<input type="text" placeholder="Jam Tutup" class="form-control" placeholder=".col-xs-3"--}}
+                     {{--name="jam_selesai_istirahat" id="jam_selesai_istirahat"  disabled>--}}
                    </div>
                  </div>
               </div>
@@ -96,7 +101,7 @@
              'showDuration': true
            }).on('selectTime', function(){
              $('#jam_selesai_istirahat').timepicker({
-               'minTime': $('#jam_selesai_istirahat').val(),
+               'minTime': $('#jam_mulai_istirahat').val(),
                'maxTime': '11:30pm',
                'timeFormat': 'H:i',
                'showDuration': true

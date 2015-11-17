@@ -44,29 +44,9 @@
 
         {{--</div>--}}
         {{--{!! Form::close() !!}--}}
-
         <a href="{{ URL::to('faskes/' . $faskes->faskes_id . '/dokter/create') }}">
         <button class="btn btn-default">Tambah Dokter</button>
         </a>
-        <table class="table table-hover table-striped table-border">
-            <tr>
-                <td>No.</td>
-                <td>Nama</td>
-                <td>Jadwal</td>
-                <td>Aksi</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>auto isi dari select2</td>
-                <td></td>
-                <td>
-                    <button class="btn btn-info">Jadwal Praktek</button>
-                     <div class="alert alert-warning">
-                                    Cek Konflik Jadwal
-                                    </div>
-                </td>
-            </tr>
-        </table>
 
 
     @if($faskes->dokter->count() > 0)
@@ -82,9 +62,19 @@
             <td>{{ $i }}</td>
             <td>{{ $dokter->nama }}</td>
             <td>
-                <button class="btn btn-success">Jadwal Praktek</button>
-                <button class="btn btn-warning">Ubah</button>
+
+                    <button class="btn btn-success">Jadwal Praktek</button>
+
+                <a href="{{ URL('faskes/' . $faskes->faskes_id . '/dokter/' .$dokter->dokter_id. '/edit') }}">
+                    <button class="btn btn-warning">Ubah</button>
+                </a>
+
+                 {!! Form::open(['url' => 'faskes/' . $faskes->faskes_id . '/dokter/' .$dokter->dokter_id , 'class' => 'pull-right']) !!}
+                        {!! Form::hidden('_method', 'DELETE') !!}
+                         {!! Form::submit('Hapus Data', ['class' => 'btn btn-danger']) !!}
+                 {!! Form::close() !!}
                 <button class="btn btn-danger">Hapus</button>
+                <div class="alert alert-warning">Cek Konflik Jadwal </div>
             </td>
         </tr>
         <?php $i++; ?>

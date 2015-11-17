@@ -19,10 +19,9 @@ class FaskesDokterController extends Controller
     {
         $faskes = Faskes::findOrFail($id);
         $d = Dokter::lists('nama','dokter_id');
-        $faskes->dokter->toArray();
-        //dd($faskes->toArray());
+        $dokter =  $faskes->dokter->toArray();
 
-        return view('faskes.dokter.index',compact('faskes','d'));
+        return view('faskes.dokter.index',compact('faskes','d','dokter'));
     }
 
     /**
@@ -34,9 +33,6 @@ class FaskesDokterController extends Controller
     {
         //
         $f = Faskes::findOrFail($id);
-
-
-
         return view('faskes.dokter.create',compact('f','d'));
     }
 
@@ -49,6 +45,8 @@ class FaskesDokterController extends Controller
     public function store(Request $request)
     {
         //
+        Dokter::create($request->all());
+        return redirect('faskes/'.$request->faskes_id.'/dokter')->with('message','Dokter Berhasil ditambahkan');
     }
 
     /**
@@ -68,9 +66,12 @@ class FaskesDokterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($faskes, $id)
     {
-        //
+
+        $dokter = Dokter::findOrFail($id);
+//        dd($dokter->toArray());
+        return view('faskes.dokter.edit',compact('dokter'));
     }
 
     /**
@@ -80,9 +81,15 @@ class FaskesDokterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $faskes, $id)
     {
-        //
+
+        $ubahDokter = $request->all();
+        $dokter = Dokter::findOrFail($id);
+        $dokter->update($ubahDokter);
+        return redirect('faskes/'.$request->faskes_id.'/dokter')->with('message','Dokter Berhasil ditambahkan');
+
+
     }
 
     /**
@@ -91,8 +98,11 @@ class FaskesDokterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($faskes, $id)
     {
         //
+        Dokter::findOrFail($id)->delete();
+        return redirect('faskes/'.$faskes.'/dokter')->with('message','Dokter Berhasil ditambahkan');
+
     }
 }

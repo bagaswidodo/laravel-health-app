@@ -1,17 +1,15 @@
 @extends('layout.admin')
 
 @section('content')
-<h1>Tambahkan  Dokter Faskes {{ $f->nama_faskes }} </h1>
+<h1>Ubah  Dokter Faskes  </h1>
     <hr/>
-
-
-
     @include('errors.list')
-    {!! Form::open(['url'=>'faskes/'.$f->faskes_id.'/dokter']) !!}
-        {!! Form::hidden('faskes_id',$f->faskes_id) !!}
-    @include('faskes.dokter._form',['submitButtonText'=>'Tambah Dokter Faskes'])
 
+    {!! Form::model($dokter,['method'=>'PATCH',
+    'action'=> ['FaskesDokterController@update',$dokter->faskes_id,$dokter->dokter_id]]) !!}
 
+    @include('faskes.dokter._form',['submitButtonText'=>'Ubah Data dokter Faskes'])
+    {!! Form::hidden('faskes_id',$dokter->faskes_id) !!}
     {!! Form::close() !!}
 
     <div class="alert alert-info">

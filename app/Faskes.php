@@ -19,7 +19,7 @@ class Faskes extends Model
 
     public function dokter()
     {
-        return $this->belongsToMany('App\Dokter');
+        return $this->hasMany('App\Dokter');
     }
 
     public function setBpjsAttribute($value)

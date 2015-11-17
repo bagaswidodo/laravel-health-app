@@ -15,4 +15,10 @@ class Dokter extends Model
     {
         $this->belongsToMany('App\Faskes');
     }
+
+
+    public function scopeKodeFaskes($query, $id)
+    {
+        return $query->where('faskes_id', $id);
+    }
 }

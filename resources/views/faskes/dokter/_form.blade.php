@@ -1,7 +1,7 @@
   <div class="alert alert-info">
         <strong>Improvement ! </strong>Custom Validation, auto value kolom lat lng
         </div>
-    {!! Form::hidden('user_id',Auth::user()->user_id) !!}
+
 
     <div class="row">
         {{--leftsection--}}

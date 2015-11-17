@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('faskes.open', 'FaskesOpenController');
     Route::resource('faskes.dokter', 'FaskesDokterController');
     Route::resource('faskes.dokter.praktek', 'PraktekDokterFaskesController');
-    Route::resource('dokter', 'DokterController');
+//    Route::resource('dokter', 'DokterController');
 });
 
 Route::get('dashboard',['middleware' => 'auth', function(){

@@ -21,4 +21,11 @@ class Dokter extends Model
     {
         return $query->where('faskes_id', $id);
     }
+
+    public function praktek()
+    {
+        return $this->hasMany('App\ODokter');
+    }
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ODokter;
+use App\Dokter;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,15 +11,33 @@ use App\Http\Controllers\Controller;
 
 class PraktekDokterFaskesController extends Controller
 {
+    private $day = [
+        0=>'Senin',
+        1=>'Selasa',
+        2=>'Rabu',
+        3=>'Kamis',
+        4=>'Jumat',
+        5=>'Sabtu',
+        6=>'Minggu'
+    ];
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id,$faskes)
+    public function index($faskes, $dokter)
     {
-        $pass = $id . " - " . $faskes;
-        return "How to get pass many through many to many relationship";
+//        $allJadwal = ODokter::allJadwal($faskes, $dokter)->get();
+        $jadwal = Dokter::find($dokter);
+        $jadwal->praktek->toArray();
+
+        $d = $this->day;
+
+//       $jadwal = Dokter::find($dokter)->praktek->where('hari',1)->toArray();
+
+
+        return view('faskes.dokter.praktek.index',compact('jadwal','d'));
     }
 
     /**
@@ -25,9 +45,10 @@ class PraktekDokterFaskesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($faskes, $id)
     {
-        //
+        $dokter = Dokter::findOrFail($id);
+        return view('faskes.dokter.praktek.create', compact('dokter'));
     }
 
     /**
@@ -38,7 +59,9 @@ class PraktekDokterFaskesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd($request->all());
+        ODokter::create($request->all());
+        return redirect('faskes/'.$request->faskes_id.'/dokter/'.$request->dokter_id.'/praktek')->with('message','Data praktek berhasil ditambahkan');
     }
 
     /**
@@ -58,9 +81,11 @@ class PraktekDokterFaskesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($faskes,$dokter,$hari)
     {
-        //
+        $p = ODokter::find($dokter)->praktek($faskes,$hari)->get();
+        $p->toArray();
+        return view('faskes.dokter.praktek.edit',compact('p'));
     }
 
     /**
@@ -70,9 +95,18 @@ class PraktekDokterFaskesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $faskes,$dokter,$hari)
     {
-        //
+
+        $praktekDokter = ODokter::findOrFail($dokter)->praktek($faskes,$hari);
+        $update['faskes_id'] = $request['faskes_id'];
+        $update['dokter_id'] = $request['dokter_id'];
+        $update['hari'] = $request['hari'];
+        $update['jam_mulai'] = $request['jam_mulai'];
+        $update['jam_selesai'] = $request['jam_selesai'];
+        $praktekDokter->update($update);
+
+        return redirect('/faskes/'.$faskes. '/dokter/' . $dokter . '/praktek')->with('message','Data berhasil diubah');
     }
 
     /**
@@ -81,8 +115,9 @@ class PraktekDokterFaskesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($faskes,$dokter,$hari)
     {
-        //
+        ODokter::find($dokter)->praktek($faskes,$hari)->delete();
+        return redirect('faskes/'.$faskes.'/dokter/'.$dokter.'/praktek')->with('message','Data Berhasil Dihapus');
     }
 }

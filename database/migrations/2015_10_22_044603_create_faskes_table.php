@@ -26,8 +26,8 @@ class CreateFaskesTable extends Migration
             $table->foreign('user_id')
                 ->references('user_id')
                 ->on('users')
-                ->update('cascade')
-                ->delete('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

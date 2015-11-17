@@ -23,8 +23,8 @@ class CreateDokterTable extends Migration
             $table->foreign('faskes_id')
                 ->references('faskes_id')
                 ->on('faskes')
-                ->update('cascade')
-                ->delete('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

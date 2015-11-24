@@ -35,15 +35,15 @@
 							</div>
 						</div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
+						{{--<div class="form-group">--}}
+							{{--<div class="col-md-6 col-md-offset-4">--}}
+								{{--<div class="checkbox">--}}
+									{{--<label>--}}
+										{{--<input type="checkbox" name="remember"> Remember Me--}}
+									{{--</label>--}}
+								{{--</div>--}}
+							{{--</div>--}}
+						{{--</div>--}}
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
@@ -51,9 +51,9 @@
 									Login
 								</button>
 
-								<a href="/password/email">Forgot Your Password?</a>
-								<br>
-								<a href="/auth/register">Register Now !</a>
+								{{--<a href="/password/email">Forgot Your Password?</a>--}}
+								{{--<br>--}}
+								{{--<a href="/auth/register">Register Now !</a>--}}
 							</div>
 						</div>
 					</form>

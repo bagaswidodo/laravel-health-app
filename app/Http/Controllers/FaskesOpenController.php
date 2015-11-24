@@ -133,7 +133,7 @@ class FaskesOpenController extends Controller
     {
         //
          OFaskes::kodeFaskes($id)->hari($hari)->delete();
-        return redirect('faskes')->with('message', 'Data berhasil dihapus!');
+        return 'Success';
 
     }
 }

@@ -13,7 +13,25 @@
 
 Route::get('/', function () {
     //return view('welcome');
-    return view('user.nearby');
+//    return view('user.nearby');
+    return view('user.welcome');
+});
+
+Route::get('lokasi',function(){
+    $term = Input::get('term');
+    $lokasi = DB::table("lokasi")->where('nama', 'LIKE', '%' . $term.'%')->get(); //find by location
+
+    $msg = [];
+    foreach($lokasi as $v)
+    {
+        $data['value'] = $v->nama;
+        $data['id'] = $v->latitude . "," . $v->longitude;
+        array_push($msg, $data);
+    }
+   return Response::json([
+       'response' => true,
+       'message' => $msg
+   ],200);
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -22,7 +40,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('faskes.open', 'FaskesOpenController');
     Route::resource('faskes.dokter', 'FaskesDokterController');
     Route::resource('faskes.dokter.praktek', 'PraktekDokterFaskesController');
-//    Route::resource('dokter', 'DokterController');
 });
 
 Route::get('dashboard',['middleware' => 'auth', function(){
@@ -82,6 +99,20 @@ Route::get('nearby/haversine/{latitude}/{longitude}/{jarak?}',function($latitude
 		    COS(abs('.$longitude.') * pi()/180 ) * COS(abs(latitude) * pi()/180)
 		* POWER(SIN((longitude - '.$longitude.') * pi()/180 / 2), 2) ))) as jarak
 		from faskes f having jarak < ' . $jarak);
+});
+
+Route::get('nearby/{location}/{jarak?}',function($location, $jarak = 1){
+    $l = explode("," , $location);
+    $latitude = $l[0];
+    $longitude = $l[1];
+
+    $nearby =  DB::select('select faskes_id,nama_faskes,latitude,longitude,tipe_id,alamat,
+			6371*(2*ASIN(SQRT(POWER(SIN((abs(latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
+		    COS(abs('.$longitude.') * pi()/180 ) * COS(abs(latitude) * pi()/180)
+		* POWER(SIN((longitude - '.$longitude.') * pi()/180 / 2), 2) ))) as jarak
+		from faskes f having jarak < ' . $jarak);
+
+        return view('user.nearby', compact('nearby','location'));
 });
 
 Route::get('nearby/euclidean/active/{latitude}/{longitude}/{jarak?}',function($latitude,$longitude,$jarak=1){

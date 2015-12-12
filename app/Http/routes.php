@@ -61,22 +61,7 @@ Route::get('praktek/{f}',function($f){
     $faskes->dokter()->attach([
         2 => ['hari' => 3,'jam_mulai'=>'17:00:00','jam_selesai'=>'19:00:00']
     ]);
-//    $faskes->dokter()->detach(2);
 
-    /**
-     * detaching
-     */
-//    $whereArray = array('dokter_id' => 2,'faskes_id' => 6,'hari' => 2);
-//
-//    $query = DB::table('dokter_faskes');
-//    foreach($whereArray as $field => $value) {
-//        $query->where($field, $value);
-//    }
-//    return $query->delete();
-
-
-
-//    return 'dokter_praktek_attached';
 });
 
 //find nearby
@@ -115,11 +100,11 @@ Route::get('nearby/{location}/{jarak?}',function($location, $jarak = 1){
         return view('user.nearby', compact('nearby','location'));
 });
 
-Route::get('nearby/detail', function ()
-{
-        return "faskes_id" ;
-        //return \App\Faskes::findOrFail($faskes_id);
+Route::get('poi/detail/{faskes_id}',function($faskes_id){
+    $f = \App\Faskes::findOrFail($faskes_id);
+    return view('user.detail',compact('f'));
 });
+
 
 Route::get('nearby/euclidean/active/{latitude}/{longitude}/{jarak?}',function($latitude,$longitude,$jarak=1){
     return DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.nama_faskes,f.latitude,f.longitude,

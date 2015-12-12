@@ -115,6 +115,12 @@ Route::get('nearby/{location}/{jarak?}',function($location, $jarak = 1){
         return view('user.nearby', compact('nearby','location'));
 });
 
+Route::get('nearby/detail', function ()
+{
+        return "faskes_id" ;
+        //return \App\Faskes::findOrFail($faskes_id);
+});
+
 Route::get('nearby/euclidean/active/{latitude}/{longitude}/{jarak?}',function($latitude,$longitude,$jarak=1){
     return DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.nama_faskes,f.latitude,f.longitude,
 		sqrt(power(abs(f.latitude)-abs('.$latitude.'),2)+power(abs(f.longitude)-abs('.$longitude.'),2))*111.319 as jarak

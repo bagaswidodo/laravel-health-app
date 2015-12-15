@@ -6,7 +6,7 @@
     @foreach($nearby as $n)
 			        <!-- info box -->
 			        <div class="list-group">
-				        <a href="{{url('nearby/detail/3') }}" class="list-group-item">
+				        <a href="{{url('poi/detail/'. $n->faskes_id) }}" class="list-group-item">
 				        	<h4 class="list-group-item-heading">{{ $n->nama_faskes }}</h4>
 				        	{{--<small>{{$n->jam_buka}}  - {{$n->jam_istirahat}}</small>--}}
 				        	<span class="pull-right">{{ $n->jarak }} KM</span>

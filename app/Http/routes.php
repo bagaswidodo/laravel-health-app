@@ -65,27 +65,8 @@ Route::get('praktek/{f}',function($f){
 });
 
 //find nearby
-Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}',function($latitude,$longitude,$jarak=1){
-    return DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.faskes_id,f.nama_faskes,f.alamat,f.latitude,f.longitude,f.tipe_id,
-	 		 6371*(2*ASIN(SQRT(POWER(SIN((abs(f.latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
-			 COS(abs('.$longitude.') * pi()/180 ) * COS(abs(f.latitude) * pi()/180)
-			 * POWER(SIN((f.longitude - '.$longitude.') *pi()/180 / 2), 2) ))) as jarak from faskes f
-			 join faskes_open fo on fo.faskes_id = f.faskes_id
-
-			 where fo.hari = WEEKDAY(now()) AND TIME(NOW()) BETWEEN fo.jam_buka AND fo.jam_tutup
-			  AND TIME(NOW()) NOT BETWEEN fo.jam_mulai_istirahat and fo.jam_selesai_istirahat
-			  having jarak < ' . $jarak);
-});
-
-Route::get('nearby/haversine/{latitude}/{longitude}/{jarak?}',function($latitude,$longitude,$jarak=1){
-
-   return DB::select('select faskes_id,nama_faskes,latitude,longitude,tipe_id,alamat,
-			6371*(2*ASIN(SQRT(POWER(SIN((abs(latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
-		    COS(abs('.$longitude.') * pi()/180 ) * COS(abs(latitude) * pi()/180)
-		* POWER(SIN((longitude - '.$longitude.') * pi()/180 / 2), 2) ))) as jarak
-		from faskes f having jarak < ' . $jarak);
-});
-
+Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}','NearbyController@nearbyHaversine');
+Route::get('nearby/haversine/{latitude}/{longitude}/{jarak?}','NearbyController@haversine');
 Route::get('nearby/{location}/{jarak?}',function($location, $jarak = 1){
     $l = explode("," , $location);
     $latitude = $l[0];

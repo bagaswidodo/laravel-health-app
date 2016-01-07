@@ -28,13 +28,18 @@ Route::get('dashboard',['middleware' => 'auth', function(){
    return view('admin.index');
 }]);
 
+// Route::resource('auth','Auth\AuthController');
 Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController'
+    'auth' => 'Auth\AuthController'
 ]);
 
+// Route::controllers([
+//     'auth' => 'Auth\AuthController',
+//     'password' => 'Auth\PasswordController'
+// ]);
+
 //find nearby
-Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}','NearbyController@nearbyHaversine');
+Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}','NearbyController@activeHaversine');
 Route::get('nearby/haversine/{latitude}/{longitude}/{jarak?}','NearbyController@haversine');
 Route::get('nearby/{location}/{jarak?}','NearbyController@location');
 Route::get('poi/detail/{faskes_id}','NearbyController@detail');

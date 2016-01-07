@@ -6,7 +6,7 @@
     @include('errors.list')
  {!! Form::model($f,['method'=>'PATCH', 'action'=> ['FaskesController@update',$f->faskes_id]]) !!}
 
-       @include('faskes._form',['submitButtonText'=>'Update Faskes'])
+       @include('faskes._edit',['submitButtonText'=>'Update Faskes'])
 
        {!! Form::close() !!}
     <div class="alert alert-info">

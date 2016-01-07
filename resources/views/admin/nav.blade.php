@@ -20,7 +20,7 @@
         	 <ul class="dropdown-menu">
         	    <li><a href="#">Pengaturan Akun</a></li>
         	    <li class="divider"></li>
-        	    <li><a href="/auth/logout">Logout</a></li>
+        	    <li><a href="{{ url() }}/auth/logout">Logout</a></li>
         	 </ul>
         </li>
       @endif

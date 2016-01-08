@@ -11,10 +11,11 @@ use App\Http\Controllers\Controller;
 
 class NearbyController extends Controller
 {
-    //
+    
     public function activeHaversine($latitude,$longitude,$jarak=1)
     {
-        return DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.faskes_id,f.nama_faskes,f.alamat,f.latitude,f.longitude,f.tipe_id,
+        $start = microtime(true);
+        $data =  DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.faskes_id,f.nama_faskes,f.alamat,f.latitude,f.longitude,f.tipe_id,
 	 		 6371*(2*ASIN(SQRT(POWER(SIN((abs(f.latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
 			 COS(abs('.$longitude.') * pi()/180 ) * COS(abs(f.latitude) * pi()/180)
 			 * POWER(SIN((f.longitude - '.$longitude.') *pi()/180 / 2), 2) ))) as jarak from faskes f
@@ -22,27 +23,68 @@ class NearbyController extends Controller
 
 			 where fo.hari = WEEKDAY(now()) AND TIME(NOW()) BETWEEN fo.jam_buka AND fo.jam_tutup
 			  AND TIME(NOW()) NOT BETWEEN fo.jam_mulai_istirahat and fo.jam_selesai_istirahat
-			  having jarak < ' . $jarak);
+			  having jarak < ' . $jarak . ' ORDER BY jarak ASC');
+        $time_elapsed = microtime(true) - $start;
+
+
+        return response()->json(['distance' => $jarak, 'waktu' => $time_elapsed ,'data' => $data]);
     }
 
+    public function filterActiveHaversine($latitude,$longitude,$jarak=1,$tipe){
+        $start = microtime(true);
+        $data =  DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.faskes_id,f.nama_faskes,f.alamat,f.latitude,f.longitude,f.tipe_id,
+             6371*(2*ASIN(SQRT(POWER(SIN((abs(f.latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
+             COS(abs('.$longitude.') * pi()/180 ) * COS(abs(f.latitude) * pi()/180)
+             * POWER(SIN((f.longitude - '.$longitude.') *pi()/180 / 2), 2) ))) as jarak from faskes f
+             join faskes_open fo on fo.faskes_id = f.faskes_id
+
+             where fo.hari = WEEKDAY(now()) AND TIME(NOW()) BETWEEN fo.jam_buka AND fo.jam_tutup
+              AND TIME(NOW()) NOT BETWEEN fo.jam_mulai_istirahat and fo.jam_selesai_istirahat
+              AND f.tipe_id = '. $tipe.' having jarak < ' . $jarak . ' ORDER BY jarak ASC');
+        $time_elapsed = microtime(true) - $start;
+
+
+        return response()->json(['distance' => $jarak, 'waktu' => $time_elapsed ,'data' => $data]);
+    }
+
+
     public function haversine($latitude,$longitude,$jarak=1){
-        return DB::select('select faskes_id,nama_faskes,latitude,longitude,tipe_id,alamat,
+        $start = microtime(true);
+        $data = DB::select('select faskes_id,nama_faskes,latitude,longitude,tipe_id,alamat,
 			6371*(2*ASIN(SQRT(POWER(SIN((abs(latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
 		    COS(abs('.$longitude.') * pi()/180 ) * COS(abs(latitude) * pi()/180)
 		* POWER(SIN((longitude - '.$longitude.') * pi()/180 / 2), 2) ))) as jarak
-		from faskes f having jarak < ' . $jarak);
+		from faskes f having jarak < ' . $jarak. ' ORDER BY jarak ASC');
+         $time_elapsed = microtime(true) - $start;
+
+          return response()->json(['distance' => $jarak, 'waktu' => $time_elapsed ,'data' => $data]);
     }
+
+    public function filterHaversine($latitude,$longitude,$jarak=1,$tipe){
+        $start = microtime(true);
+        $data = DB::select('select faskes_id,nama_faskes,latitude,longitude,tipe_id,alamat,
+            6371*(2*ASIN(SQRT(POWER(SIN((abs(latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
+            COS(abs('.$longitude.') * pi()/180 ) * COS(abs(latitude) * pi()/180)
+            * POWER(SIN((longitude - '.$longitude.') * pi()/180 / 2), 2) ))) as jarak
+            from faskes f WHERE tipe_id = '.$tipe.' having jarak < ' . $jarak. ' ORDER BY jarak ASC');
+        $time_elapsed = microtime(true) - $start;
+
+        return response()->json(['distance' => $jarak, 'waktu' => $time_elapsed ,'data' => $data]);
+    }
+
+
 
     public function activeEuclidean($latitude,$longitude,$jarak=1)
     {
-        return DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.nama_faskes,f.latitude,f.longitude,
+        $start = microtime(true);
+        $data  = DB::select('select fo.hari,fo.jam_buka,fo.jam_tutup,f.nama_faskes,f.latitude,f.longitude,
 		sqrt(power(abs(f.latitude)-abs('.$latitude.'),2)+power(abs(f.longitude)-abs('.$longitude.'),2))*111.319 as jarak
-		from faskes f
-		join faskes_open fo on fo.faskes_id= f.faskes_id
-
+		from faskes f join faskes_open fo on fo.faskes_id= f.faskes_id
 		where fo.hari = WEEKDAY(now()) AND TIME(NOW()) BETWEEN fo.jam_buka AND fo.jam_tutup
-		AND TIME(NOW()) NOT BETWEEN fo.jam_mulai_istirahat and fo.jam_selesai_istirahat having jarak < ' . $jarak);
-
+		AND TIME(NOW()) NOT BETWEEN fo.jam_mulai_istirahat and fo.jam_selesai_istirahat 
+        having jarak < ' . $jarak);
+        $time_elapsed = microtime(true) - $start;
+        return response()->json(['distance' => $jarak, 'waktu' => $time_elapsed ,'data' => $data]);
     }
 
     public function location($location, $jarak = 1)
@@ -51,26 +93,35 @@ class NearbyController extends Controller
             $latitude = $l[0];
             $longitude = $l[1];
 
+            $start = microtime(true);
             $nearby =  DB::select('select faskes_id,nama_faskes,latitude,longitude,tipe_id,alamat,
 			6371*(2*ASIN(SQRT(POWER(SIN((abs(latitude) - abs('.$latitude.')) * pi()/180 / 2), 2) +
 		    COS(abs('.$longitude.') * pi()/180 ) * COS(abs(latitude) * pi()/180)
             * POWER(SIN((longitude - '.$longitude.') * pi()/180 / 2), 2) ))) as jarak
             from faskes f having jarak < ' . $jarak);
+            $elapsed_time = microtime(true) - $start;
 
-            return view('user.nearby', compact('nearby','location'));
+            $distance = $jarak;
+            $waktu = $elapsed_time;
+
+            return view('user.nearby', compact('nearby','location','distance','waktu'));
 
     }
 
-    public function detail($faskes_id){
+    public function detail($latlng,$faskes_id){
             $f = \App\Faskes::findOrFail($faskes_id);
-            return view('user.detail',compact('f'));
+            $location = $latlng;
+            return view('user.detail',compact('f', 'location'));
     }
 
     public function euclidean($latitude,$longitude,$jarak=1)
     {
-        return DB::select('select nama_faskes,latitude,longitude,sqrt(power(abs(latitude)-abs('.$latitude.'),2)
+        $start = microtime(true);
+        $data  = DB::select('select nama_faskes,latitude,longitude,sqrt(power(abs(latitude)-abs('.$latitude.'),2)
 			+power(abs(longitude)-abs('.$longitude.'),2))*111.319 as jarak
 		from faskes having jarak < ' . $jarak);
+         $time_elapsed = microtime(true) - $start;
+        return response()->json(['distance' => $jarak, 'waktu' => $time_elapsed ,'data' => $data]);
 
     }
 

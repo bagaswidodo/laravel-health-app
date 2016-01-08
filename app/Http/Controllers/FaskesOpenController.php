@@ -119,7 +119,7 @@ class FaskesOpenController extends Controller
         $faskesOpen['jam_mulai_istirahat'] = $request['jam_mulai_istirahat'];
         $faskesOpen['jam_selesai_istirahat'] = $request['jam_selesai_istirahat'];
         $faskes->update($faskesOpen);
-        return redirect('faskes')->with('message', 'Data berhasil dihapus!');
+        return redirect('faskes/' . $id . '/open')->with('message', 'Data berhasil diUbah');
 
     }
 
@@ -133,7 +133,7 @@ class FaskesOpenController extends Controller
     {
         //
          OFaskes::kodeFaskes($id)->hari($hari)->delete();
-        return 'Success';
+        return redirect('faskes/' . $id . '/open')->with('message', 'Data berhasil diUbah');
 
     }
 }

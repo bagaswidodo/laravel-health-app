@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Faskes;
 use App\Tipe;
 use Auth;
+use Validator;
 
 class FaskesController extends Controller
 {
@@ -91,9 +92,26 @@ class FaskesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FaskesRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //old way
+         $validator = Validator::make($request->all(), [
+            'nama_faskes' => 'required|min:3',
+            'alamat' => 'required', //or ['required|date]
+            'latitude'=>'required',
+            'longitude' =>'required',
+        ],[
+            'nama_faskes.required'  => 'Kolom Nama Faskes tidak boleh kosong',
+            'alamat.required'       => 'Alamat tidak boleh kosong',
+            'latitude.required'       => 'Latitude tidak boleh kosong',
+            'longitude.required'    => 'Longitude tidak boleh kosong',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('faskes/' . $id . '/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $faskesUpdate = $request->all();
         $f = Faskes::find($id);

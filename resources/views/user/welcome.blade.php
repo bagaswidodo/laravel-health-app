@@ -9,12 +9,12 @@
     <link rel="shortcut icon" href="assets/img/favicon.png">
 
     <title>Aplikasi Pencarian Layanan Kesehatan Terdekat</title>
-
+    <link rel="stylesheet" type="text/css" href="css/frontend.css">
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('vendor/flatty/main.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('vendor/flatty/main.css') }}" rel="stylesheet"> -->
 
     <!-- Fonts from Google Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
@@ -81,9 +81,9 @@
 		<hr />
 		  <p class="pull-right">
        <small>Theme by BlackTie.co - Attribution License 3.0 - Engine By 672011199.
-         <a href="{{url('#')">About</a>
-         <a href="{{url('#')">How To</a>
-  			 <a href="{{url('#')">API</a>
+         <a href="{{url('#')}}">About</a>
+         <a href="{{url('#')}}">How To</a>
+  			 <a href="{{url('#')}}">API</a>
        </small>
       </p>
 	</div><!-- /container -->
@@ -93,9 +93,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-  <script type="text/javascript" src="{{ asset('vendor/jquery/js/jquery-1.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
-  <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}" type="text/css" media="all" />
+  <script src="js/frontend.js"></script>
+  <!-- <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}" type="text/css" media="all" /> -->
 
     <script type='text/javascript'>
         $(this).ready( function() {

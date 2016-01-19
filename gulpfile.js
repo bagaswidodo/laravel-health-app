@@ -11,6 +11,9 @@ var elixir = require('laravel-elixir');
  |
  */
 
+elixir.config.sourcemaps = false;//not create file *.map
 elixir(function(mix) {
-    mix.sass('app.scss');
+    // mix.sass('app.scss');
+    //mix.scripts(['app.js','control.js'],'vendor.js');
+    mix.scripts('tools/geolocation.js','public/js/tools/geolocation.js');
 });

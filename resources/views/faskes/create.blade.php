@@ -12,9 +12,7 @@
 
     {!! Form::close() !!}
 
-    <div class="alert alert-info">
-        <b>Improve</b> Map,Select 2 from API tipe,geocode lokasi,geolocation html,validation, add kolom bpjs support
-    </div>
+   
 
 @stop
 

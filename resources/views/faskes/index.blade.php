@@ -3,6 +3,7 @@
 @section('content')
     <h1>Daftar Lyanan kesehatan</h1>
     <hr/>
+    <div class="alert alert-warning">Pagination</div>
 
     <br>
     <a href="{{url('faskes/create')}}">

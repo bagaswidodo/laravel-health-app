@@ -18,11 +18,7 @@
 
     <!-- Fonts from Google Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
-
-
-
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -83,8 +79,13 @@
 
 	<div class="container">
 		<hr />
-		<p class="pull-right"><small>Created by BlackTie.co - Attribution License 3.0 - Engine By 672011199.
-			 //echo anchor('', 'About') . " | " . anchor('#', 'How To') . " | " .anchor('#','API')</small></p>
+		  <p class="pull-right">
+       <small>Theme by BlackTie.co - Attribution License 3.0 - Engine By 672011199.
+         <a href="{{url('#')">About</a>
+         <a href="{{url('#')">How To</a>
+  			 <a href="{{url('#')">API</a>
+       </small>
+      </p>
 	</div><!-- /container -->
 
 

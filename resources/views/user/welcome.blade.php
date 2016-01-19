@@ -44,7 +44,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url('faskes') }}">Sudah Mendaftar?</a></li>
+            <li><a href="{{ url('faskes') }}">Backend</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

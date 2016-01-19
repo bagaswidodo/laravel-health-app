@@ -3,6 +3,8 @@
 /.idea
 /bower_components
 /node_modules
+/resources/assets/css/vendor
+/resources/assets/js/vendor
 Homestead.yaml
 Homestead.json
 .env

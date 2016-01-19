@@ -21,6 +21,9 @@ elixir(function(mix) {
     var vendorJsDir = 'resources/assets/js/vendor';
     var bowerDir = 'public/vendor';
 
+
+    //frontend configuration
+    /*
     mix.copy(bowerDir + '/bootstrap/css/bootstrap.min.css', vendorCssDir);
     mix.copy(bowerDir + '/flatty/main.css', vendorCssDir);
     mix.copy(bowerDir + '/jquery-ui/jquery-ui.min.css', vendorCssDir);
@@ -38,6 +41,31 @@ elixir(function(mix) {
     mix.scripts([
     	'vendor/jquery-1.min.js',
     	'vendor/jquery-ui.min.js'
-    	],'public/js/frontend.js')
+    	],'public/js/frontend.js');
+    */
+
+    //backend configuration
+    mix.copy(bowerDir + '/bootstrap/css/bootstrap.min.css', vendorCssDir);
+    mix.copy(bowerDir + '/select2/css/select2.min.css', vendorCssDir);
+    mix.copy(bowerDir + '/bootstrap-toggle/bootstrap-toggle.min.css', vendorCssDir);
+
+    mix.copy(bowerDir + '/jquery/js/jquery.min.js', vendorJsDir);
+    mix.copy(bowerDir + '/bootstrap/js/bootstrap.min.js', vendorJsDir);
+    mix.copy(bowerDir + '/select2/js/select2.min.js', vendorJsDir);
+    mix.copy(bowerDir + '/bootstrap-toggle/bootstrap-toggle.min.js', vendorJsDir);
+
+    mix.styles([
+        'vendor/bootstrap.min.css',
+        'vendor/select2.min.css',
+        'vendor/bootstrap-toggle.min.css'
+        ],'public/css/backend.css');
+
+
+    mix.scripts([
+        'vendor/jquery.min.js',
+        'vendor/bootstrap.min.js',
+        'vendor/select2.min.js',
+        'vendor/bootstrap-toggle.min.js'
+        ],'public/js/backend.js');
 
 });

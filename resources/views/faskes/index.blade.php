@@ -3,8 +3,6 @@
 @section('content')
     <h1>Daftar Lyanan kesehatan</h1>
     <hr/>
-    <div class="alert alert-warning">Pagination</div>
-
     <br>
     <a href="{{url('faskes/create')}}">
     <button class="btn btn-default"><i class="glyphicon glyphicon-cog"></i>Tambah Faskes</button>
@@ -18,7 +16,10 @@
                 <td>Alamat</td>
                 <td>Aksi</td>
             </tr>
-            <?php $i = 1; ?>
+            <?php
+            $page = $f->currentPage();
+            $i = ($page > 1) ? $f->perPage()*($page-1)+1 : 1;
+             ?>
             @foreach($f as $faskes)
             <tr>
                 <td>{{ $i }}</td>
@@ -51,12 +52,14 @@
             <?php $i++; ?>
             @endforeach
          </table>
+
+        <div class="pagination">{!! $f->render() !!}</div> <!-- just like this create paginastion ? -->
         @else
             <div class="alert alert-warning">Data Tidak ditemukan</div>
         @endif
 
             <div class="alert alert-info"><strong> Improe Feature : </strong>
-            Pagination, Find, Id NUmber ++ template, if dokter only jadwal praktek if klinik/rs add new dokter</div>
+            Find, display with dropdown | spa angular</div>
 
 @stop
 

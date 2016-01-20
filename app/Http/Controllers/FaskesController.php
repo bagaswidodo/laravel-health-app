@@ -31,7 +31,7 @@ class FaskesController extends Controller
     public function index()
     {
         //
-        $f = Auth::user()->faskes;
+        $f = Auth::user()->faskes()->paginate(10);
         //dd($this->faskesTipe);
        return view('faskes.index',compact('f'));
     }
@@ -56,8 +56,9 @@ class FaskesController extends Controller
      */
     public function store(FaskesRequest $request)
     {
-       Faskes::create($request->all());
-        return redirect('faskes')->with('message','Data Faskes di tambahkan');
+        dd($request->all());
+       // Faskes::create($request->all());
+        // return redirect('faskes')->with('message','Data Faskes di tambahkan');
     }
 
     /**

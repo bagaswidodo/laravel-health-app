@@ -60,7 +60,7 @@ class FaskesOpenController extends Controller
     public function store(Request $request)
     {
 
-//        dd($request->all());
+       // dd($request->all());
         OFaskes::create($request->all());
         return redirect('faskes/'.$request->faskes_id.'/open')->with('message','Berhasil ditambahkan');
 

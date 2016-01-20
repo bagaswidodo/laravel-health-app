@@ -39,12 +39,10 @@
                             if($fo->jam_mulai_istirahat == NULL)
                             {
                             ?>
-                            a
                              <small>{{ $fo->jam_buka }} - {{ $fo->jam_tutup }}</small><br />
                             <?php
                             }else{
                             ?>
-b
                              <small>{{ $fo->jam_buka }} - {{ $fo->jam_mulai_istirahat }}</small><br />
                              <small>{{ $fo->jam_selesai_istirahat }} - {{ $fo->jam_tutup }}</small>
                             <?php } ?>

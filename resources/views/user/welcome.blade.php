@@ -80,10 +80,10 @@
 	<div class="container">
 		<hr />
 		  <p class="pull-right">
-       <small>Theme by BlackTie.co - Attribution License 3.0 - Engine By 672011199.
-         <a href="{{url('#')}}">About</a>
-         <a href="{{url('#')}}">How To</a>
-  			 <a href="{{url('#')}}">API</a>
+       <small>Theme by BlackTie.co - code  672011199.
+         <a href="{{url('#')}}">About</a> | 
+         <a href="{{url('#')}}">How To</a> | 
+  			 <a href="{{url('#')}}">API</a> | 
        </small>
       </p>
 	</div><!-- /container -->

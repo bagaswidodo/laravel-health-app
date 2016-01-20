@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>APP </title>
-    <link rel="stylesheet" type="text/css" href="css/backend.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/backend.css') }}">
   </head>
   <body>
 
@@ -15,7 +15,7 @@
     @yield('content')
     </div>
 
-    <script src="js/backend.js"></script>
+    <script src="{{ asset('js/backend.js') }}"></script>
     <script>
         //to show modal
         $('#flash-overlay-modal').modal();

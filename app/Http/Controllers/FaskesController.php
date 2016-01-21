@@ -99,11 +99,15 @@ class FaskesController extends Controller
             'alamat' => 'required', //or ['required|date]
             'latitude'=>'required',
             'longitude' =>'required',
+            'web' => 'url',
+            'phone' => 'regex:/(\(\d{4}+\)+ \d{3}+\-\d{3}+)/'
         ],[
             'nama_faskes.required'  => 'Kolom Nama Faskes tidak boleh kosong',
             'alamat.required'       => 'Alamat tidak boleh kosong',
-            'latitude.required'       => 'Latitude tidak boleh kosong',
+            'latitude.required'     => 'Latitude tidak boleh kosong',
             'longitude.required'    => 'Longitude tidak boleh kosong',
+            'web.url'               => 'alamat website tidak valid',
+            'phone.regex'           => 'Nomor Telpon tidak valid'
         ]);
 
         if ($validator->fails()) {

@@ -127,5 +127,5 @@
 			document.getElementById('location').value = lat + "," + lng;
 		}
 </script>
-<script src="js/tools/geolocation.js"></script>
+<script src="{{ asset('js/tools/geolocation.js') }}"></script>
 @endsection

@@ -52,7 +52,6 @@
             <?php $i++; ?>
             @endforeach
          </table>
-
         <div class="pagination">{!! $f->render() !!}</div> <!-- just like this create paginastion ? -->
         @else
             <div class="alert alert-warning">Data Tidak ditemukan</div>

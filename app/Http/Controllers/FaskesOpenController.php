@@ -136,10 +136,6 @@ class FaskesOpenController extends Controller
             $faskes[0]->jam_mulai_istirahat = $tmp[2];
            
         }
-
-
-        
-
         // dd($data);
         return view('faskes_open/edit',compact('faskes'));
     }
@@ -169,10 +165,6 @@ class FaskesOpenController extends Controller
         {
             $faskesOpen = $request->all();
         }    
-        // $faskesOpen['jam_buka'] = $request['jam_buka'];
-        // $faskesOpen['jam_tutup'] = $request['jam_tutup'];
-        // $faskesOpen['jam_mulai_istirahat'] = $request['jam_mulai_istirahat'];
-        // $faskesOpen['jam_selesai_istirahat'] = $request['jam_selesai_istirahat'];
         $faskes->update($faskesOpen);
         return redirect('faskes/' . $id . '/open')->with('message', 'Data berhasil diUbah');
 

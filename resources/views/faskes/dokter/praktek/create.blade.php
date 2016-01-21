@@ -8,7 +8,9 @@
         {!! Form::hidden('faskes_id',$dokter->faskes_id)!!}
         {!! Form::hidden('dokter_id',$dokter->dokter_id)!!}
 
-        @include('faskes.dokter.praktek._form',['submitButtonText'=>'Tambah Jadwal Praktek'])
+        @include('faskes.dokter.praktek._form',
+        		['submitButtonText'=>'Tambah Jadwal Praktek',
+        		'url' => 'faskes/'. $dokter->faskes_id .'/dokter/'. $dokter->dokter_id . '/praktek'])
 
 
         {!! Form::close() !!}

@@ -41,6 +41,4 @@
     @else
         <div class="alert alert-warning">Jadwal Praktek belum ada</div>
     @endif
-
-    <div class="alert alert-warning">Cek konflik jadwal, cek hari, disable hari when update</div>
 @stop

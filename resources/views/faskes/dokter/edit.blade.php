@@ -8,7 +8,7 @@
     {!! Form::model($dokter,['method'=>'PATCH',
     'action'=> ['FaskesDokterController@update',$dokter->faskes_id,$dokter->dokter_id]]) !!}
 
-    @include('faskes.dokter._form',['submitButtonText'=>'Ubah Data dokter Faskes'])
+    @include('faskes.dokter._form',['submitButtonText'=>'Ubah Data dokter Faskes','url'=>'faskes/'.$dokter->faskes_id.'/dokter'])
     {!! Form::hidden('faskes_id',$dokter->faskes_id) !!}
     {!! Form::close() !!}
 

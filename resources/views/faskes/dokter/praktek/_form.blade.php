@@ -1,15 +1,20 @@
     <hr/>
-    @include('errors.list')
             <?php
                 $day = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
-
              ?>
 
+            @if(Session::has('message'))
+              <div class="alert alert-warning">{{ session('message') }}</div>
+            @endif
             {{--input hari dan jam praktek--}}
-             <div class="form-group">
-                {!! Form::label('hari','Hari Kerja') !!}
-                {!! Form::select('hari', $day,null,['class' => 'form-control',(isset($p[0]->hari)) ? 'disabled' : '']) !!}
-             </div>
+            @if((isset($p[0]->hari)))
+              <h3>Jadwal Dokter Hari : {{ $day[$p[0]->hari] }}</h3>
+            @else
+               <div class="form-group">
+                  {!! Form::label('hari','Hari Kerja') !!}
+                  {!! Form::select('hari', $day,null,['class' => 'form-control']) !!}
+               </div>
+            @endif
 
 
              <div class="form-group">
@@ -22,14 +27,14 @@
                     </div>
                  </div>
               </div>
-             {{--end input jam hari dan praktek--}}
-             {{--bug : jika ada value praktek sore otomatis checked --}}
            <div class="form-group">
                {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
-               {!! Form::submit('Batal', ['class' => 'btn btn-danger form-control']) !!}
+               <a href="{{ url($url) }}">
+               <button class="btn btn-danger form-control" type="button">Batal</button>
+               </a>
            </div>
     <div class="alert alert-info">
-        <b>Improve</b> Time picker, Time validation,
+        <b>Improve</b> Time validation,
     </div>
 
 

@@ -56,7 +56,9 @@
             <td>Nama</td>
             <td>Aksi</td>
         </tr>
-        <?php $i = 1; ?>
+        <?php $i = 1;
+        // var_dump($faskes->dokter);
+         ?>
         @foreach($faskes->dokter as $dokter)
         <tr>
             <td>{{ $i }}</td>
@@ -74,7 +76,7 @@
                          {!! Form::submit('Hapus Data', ['class' => 'btn btn-danger']) !!}
                  {!! Form::close() !!}
                 {{--<button class="btn btn-danger">Hapus</button>--}}
-                <div class="alert alert-warning">Cek Konflik Jadwal </div>
+                <!-- <div class="alert alert-warning">Cek Konflik Jadwal </div> -->
             </td>
         </tr>
         <?php $i++; ?>
@@ -86,7 +88,7 @@
        </div>
     @endif
 
-    <div class="alert alert-info"><strong>Imrpove : </strong> Pagination, validation, </div>
+    <div class="alert alert-info"><strong>Imrpove : </strong> Pagination, </div>
 @endsection
 
 

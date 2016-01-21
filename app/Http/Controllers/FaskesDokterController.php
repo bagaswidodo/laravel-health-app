@@ -20,7 +20,7 @@ class FaskesDokterController extends Controller
     {
         $faskes = Faskes::findOrFail($id);
         $d = Dokter::lists('nama','dokter_id');
-        $dokter =  $faskes->dokter->toArray();
+        $dokter =  $faskes->dokter()->paginate(5);
 
         return view('faskes.dokter.index',compact('faskes','d','dokter'));
     }
@@ -45,7 +45,7 @@ class FaskesDokterController extends Controller
      */
     public function store(Request $request)
     {
-         $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'nama' => 'required|min:3'
         ],[
             'nama.required'  => 'Kolom Nama tidak boleh kosong',
@@ -57,6 +57,7 @@ class FaskesDokterController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
         Dokter::create($request->all());
         return redirect('faskes/'.$request->faskes_id.'/dokter')->with('message','Dokter Berhasil ditambahkan');
     }

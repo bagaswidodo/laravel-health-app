@@ -18,7 +18,12 @@
         </div>
         <div class="form-group">
                 {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
-                {!! Form::submit('Batal', ['class' => 'btn btn-danger form-control']) !!}
+                <a href="{{ url($url) }}">
+                    <button class="btn btn-danger form-control" type="button">
+                        Batal
+                    </button>
+                </a>
+                
         </div>
 
 

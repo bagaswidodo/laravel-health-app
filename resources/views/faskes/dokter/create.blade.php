@@ -6,7 +6,7 @@
     @include('errors.list')
     {!! Form::open(['url'=>'faskes/'.$f->faskes_id.'/dokter']) !!}
         {!! Form::hidden('faskes_id',$f->faskes_id) !!}
-    @include('faskes.dokter._form',['submitButtonText'=>'Tambah Dokter Faskes'])
+    @include('faskes.dokter._form',['submitButtonText'=>'Tambah Dokter Faskes','url'=>'faskes/'.$f->faskes_id.'/dokter'])
     {!! Form::close() !!}
 @stop
 

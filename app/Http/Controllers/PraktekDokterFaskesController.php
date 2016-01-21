@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\ODokter;
 use App\Dokter;
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ class PraktekDokterFaskesController extends Controller
      */
     public function create($faskes, $id)
     {
+
         $dokter = Dokter::findOrFail($id);
         return view('faskes.dokter.praktek.create', compact('dokter'));
     }
@@ -59,9 +61,37 @@ class PraktekDokterFaskesController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
-        ODokter::create($request->all());
-        return redirect('faskes/'.$request->faskes_id.'/dokter/'.$request->dokter_id.'/praktek')->with('message','Data praktek berhasil ditambahkan');
+        $validator = Validator::make($request->all(), [
+            'hari'          => 'required',
+            'jam_mulai'     => 'required',
+            'jam_selesai'   => 'required'
+        ],[
+            'hari.required'         => 'Field hari tidak boleh kosong',
+            'jam_mulai.required'    => 'Field jam mulai praktik tidak boleh kosong',
+            'jam_selesai.required'  => 'Field jam selesai praktik tidak boleh kosong'
+        ]);
+
+        if ($validator->fails()) {
+             return redirect('faskes/'.$request->faskes_id.'/dokter/'.$request->dokter_id.'/praktek/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }else {
+            $exist =   ODokter::where('faskes_id',$request->faskes_id)
+                            ->where('dokter_id',$request->dokter_id)
+                            ->where('hari', $request->hari)->count();
+            if($exist > 0)
+            {
+                return redirect('faskes/'.$request->faskes_id.'/dokter/'.$request->dokter_id.'/praktek/create')
+                        ->with('message', 'Jadwal pada hari '. $this->day[$request->hari] .' telah di inputkan !')
+                        ->withInput();
+            }
+            else
+            {
+                ODokter::create($request->all());
+                return redirect('faskes/'.$request->faskes_id.'/dokter/'.$request->dokter_id.'/praktek')->with('message','Data praktek berhasil ditambahkan');
+            }
+
+        }
     }
 
     /**

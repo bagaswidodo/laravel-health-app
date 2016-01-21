@@ -17,8 +17,8 @@ class CreateFaskesOpenTable extends Migration
             $table->integer('hari');
             $table->time('jam_buka');
             $table->time('jam_tutup');
-            $table->time('jam_mulai_istirahat');
-            $table->time('jam_selesai_istirahat');
+            $table->time('jam_mulai_istirahat')->default('00:00:00');
+            $table->time('jam_selesai_istirahat')->default('00:00:00');
             $table->timestamps();
 
             $table->foreign('faskes_id')

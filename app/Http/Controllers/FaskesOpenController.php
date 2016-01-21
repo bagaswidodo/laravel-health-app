@@ -163,7 +163,14 @@ class FaskesOpenController extends Controller
         }
         else
         {
-            $faskesOpen = $request->all();
+            // $faskesOpen = $request->all();
+            $faskesOpen = [
+                  "faskes_id" => $id,
+                  "hari" => $request->hari,
+                  "jam_buka" => $request->jam_buka,
+                  "jam_tutup" => $request->jam_tutup
+            ];
+            // dd($request->all());
         }    
         $faskes->update($faskesOpen);
         return redirect('faskes/' . $id . '/open')->with('message', 'Data berhasil diUbah');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Validator;
 use App\Faskes;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -71,28 +72,53 @@ class FaskesOpenController extends Controller
         $exist =   OFaskes::where('faskes_id',$id)
               ->where('hari', $request->hari)->count();
 
-        if($exist > 0)
-        {
+        //validate
+        $validator = Validator::make($request->all(), [
+            'hari' => 'required',
+            'jam_buka' => 'required',
+            'jam_mulai_istirahat' => 'after:jam_buka|before:jam_selesai_istirahat|after:jam_tutup',
+            'jam_selesai_istirahat' => 'after:jam_buka|after:jam_tutup',
+            'jam_tutup' => 'required|after:jam_buka'
+
+        ],[
+            'hari.required' => 'Hari Kerja Belum Dipilih',
+            'jam_buka.required' => 'Jam mulai praktik belum di isi',
+            'jam_mulai_istirahat.after' => 'Jam Mulai Praktek Sore Tidak Valid',
+            'jam_mulai_istirahat.before' => 'Jam Mulai Praktek Sore Tidak Valid',
+            'jam_selesai_istirahat.after' => 'Jam Selesai Praktek Sore Tidak Valid',
+            'jam_selesai_istirahat.before' => 'Jam Selesai Praktek Sore Tidak Valid',
+            'jam_tutup.required' => 'Jam Selesai Praktik belum di isi',
+            'jam_tutup.after' => 'Jam Selesai praktik tidak valid'
+        ]);
+
+        if ($validator->fails()) {
             return redirect('faskes/' . $id . '/open/create')
-                    ->with('message', 'Jadwal pada hari '. $day[$request->hari] .' telah di inputkan !')
-                    ->withInput();
-        }
-        else
-        {
-            if(isset($request->jam_mulai_istirahat)){
-                $data = [
-                    'faskes_id' => $id,
-                    'hari' => $request->hari,
-                    'jam_buka' => $request->jam_buka,
-                    'jam_mulai_istirahat' => $request->jam_tutup,
-                    'jam_selesai_istirahat' => $request->jam_mulai_istirahat,
-                    'jam_tutup' => $request->jam_selesai_istirahat
-                ];
+                        ->withErrors($validator)
+                        ->withInput();
+        }else {
+            if($exist > 0)
+            {
+                return redirect('faskes/' . $id . '/open/create')
+                        ->with('message', 'Jadwal pada hari '. $day[$request->hari] .' telah di inputkan !')
+                        ->withInput();
             }
             else
             {
-                $data = $request->all();
-            }            
+                if(isset($request->jam_mulai_istirahat)){
+                    $data = [
+                        'faskes_id' => $id,
+                        'hari' => $request->hari,
+                        'jam_buka' => $request->jam_buka,
+                        'jam_mulai_istirahat' => $request->jam_tutup,
+                        'jam_selesai_istirahat' => $request->jam_mulai_istirahat,
+                        'jam_tutup' => $request->jam_selesai_istirahat
+                    ];
+                }
+                else
+                {
+                    $data = $request->all();
+                }            
+            }
         }
 
         OFaskes::create($data);
@@ -123,7 +149,7 @@ class FaskesOpenController extends Controller
     {
 
         $faskes = OFaskes::kodeFaskes($id)->hari($hari)->get();
-        if($faskes[0]->jam_mulai_istirahat != NULL)
+        if($faskes[0]->jam_mulai_istirahat != "00:00:00")
         {
             $tmp = [
                 $faskes[0]->jam_tutup,
@@ -151,10 +177,35 @@ class FaskesOpenController extends Controller
     {
         //
         $faskes = OFaskes::kodeFaskes($id)->hari($hari);
+
+        //validate
+        $validator = Validator::make($request->all(), [
+            'jam_buka' => 'required',
+            'jam_mulai_istirahat' => 'after:jam_buka|before:jam_selesai_istirahat|after:jam_tutup',
+            'jam_selesai_istirahat' => 'after:jam_buka|after:jam_tutup',
+            'jam_tutup' => 'required|after:jam_buka'
+
+        ],[
+            'jam_buka.required' => 'Jam mulai praktik belum di isi',
+            'jam_mulai_istirahat.after' => 'Jam Mulai Praktek Sore Tidak Valid',
+            'jam_mulai_istirahat.before' => 'Jam Mulai Praktek Sore Tidak Valid',
+            'jam_selesai_istirahat.after' => 'Jam Selesai Praktek Sore Tidak Valid',
+            'jam_selesai_istirahat.before' => 'Jam Selesai Praktek Sore Tidak Valid',
+            'jam_tutup.required' => 'Jam Selesai Praktik belum di isi',
+            'jam_tutup.after' => 'Jam Selesai praktik tidak valid'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('faskes/' . $id . '/open/' . $hari . '/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+
+
         if(isset($request->jam_mulai_istirahat)){
             $faskesOpen = [
                 'faskes_id' => $id,
-                'hari' => $request->hari,
                 'jam_buka' => $request->jam_buka,
                 'jam_mulai_istirahat' => $request->jam_tutup,
                 'jam_selesai_istirahat' => $request->jam_mulai_istirahat,
@@ -166,7 +217,6 @@ class FaskesOpenController extends Controller
             // $faskesOpen = $request->all();
             $faskesOpen = [
                   "faskes_id" => $id,
-                  "hari" => $request->hari,
                   "jam_buka" => $request->jam_buka,
                   "jam_tutup" => $request->jam_tutup
             ];

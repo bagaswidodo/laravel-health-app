@@ -36,11 +36,10 @@
                          <td> {{ $i  }}</td>
                          <td>
                             <h5>{{ $hari[$fo->hari] }}</h5>
-                            {{ $fo->hari}}
                         </td>
                          <td>
                             <?php
-                            if($fo->jam_mulai_istirahat == NULL)
+                            if($fo->jam_mulai_istirahat == "00:00:00")
                             {
                             ?>
                              <small>{{ $fo->jam_buka }} - {{ $fo->jam_tutup }}</small><br />

@@ -1,28 +1,27 @@
-    <hr/>
-    @include('errors.list')
             <?php
                 $day = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
 
              ?>
 
             {{--input hari dan jam praktek--}}
-             <div class="form-group">
-                {!! Form::label('hari','Hari Kerja') !!}
-                {!! Form::select('hari', $day,null,['class' => 'form-control']) !!}
-             </div>
+            @if((isset($faskes[0]->hari)))
+              <h3>Jadwal Dokter Hari : {{ $day[$faskes[0]->hari] }}</h3>
+            @else
+               <div class="form-group">
+                  {!! Form::label('hari','Hari Kerja') !!}
+                  {!! Form::select('hari', $day,null,['class' => 'form-control']) !!}
+               </div>
+            @endif
 
 
              <div class="form-group">
                  <div class="row">
                    <div class="col-xs-6">
-                  {!! Form::text('jam_buka',null,['class'=>'form-control','id'=>'jam_buka']) !!}
-                     {{--<input type="text" placeholder="Jam Buka" class="form-control" placeholder=""--}}
-                     {{--name="jam_buka" id="jam_buka" >--}}
+                  {!! Form::text('jam_buka',null,['class'=>'form-control','id'=>'jam_buka', 'placeholder'=> 'Jam Mulai']) !!}
+
                    </div>
                    <div class="col-xs-6">
-                     {!! Form::text('jam_tutup',null,['class'=>'form-control','id'=>'jam_tutup']) !!}
-                     {{--<input type="text" placeholder="Jam Tutup" class="form-control" placeholder=".col-xs-3"--}}
-                     {{--name="jam_tutup" id="jam_tutup" >--}}
+                     {!! Form::text('jam_tutup',null,['class'=>'form-control','id'=>'jam_tutup', 'placeholder'=> 'Jam Selesai']) !!}
                    </div>
                  </div>
               </div>
@@ -37,13 +36,9 @@
                  <div class="row">
                    <div class="col-xs-6">
                     {!! Form::text('jam_mulai_istirahat',null,['class'=>'form-control','id'=>'jam_mulai_istirahat','disabled']) !!}
-                     {{--<input type="text" placeholder="Jam Buka" class="form-control" placeholder=""--}}
-                     {{--name="jam_mulai_istirahat" id="jam_mulai_istirahat"  disabled>--}}
                    </div>
                    <div class="col-xs-6">
                     {!! Form::text('jam_selesai_istirahat',null,['class'=>'form-control','id'=>'jam_selesai_istirahat','disabled']) !!}
-                     {{--<input type="text" placeholder="Jam Tutup" class="form-control" placeholder=".col-xs-3"--}}
-                     {{--name="jam_selesai_istirahat" id="jam_selesai_istirahat"  disabled>--}}
                    </div>
                  </div>
               </div>

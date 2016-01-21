@@ -8,22 +8,18 @@
             {{--input hari dan jam praktek--}}
              <div class="form-group">
                 {!! Form::label('hari','Hari Kerja') !!}
-                {!! Form::select('hari', $day,null,['class' => 'form-control']) !!}
+                {!! Form::select('hari', $day,null,['class' => 'form-control',(isset($p[0]->hari)) ? 'disabled' : '']) !!}
              </div>
 
 
              <div class="form-group">
                  <div class="row">
                    <div class="col-xs-6">
-                  {!! Form::text('jam_mulai',null,['class'=>'form-control','id'=>'jam_buka']) !!}
-                     {{--<input type="text" placeholder="Jam Buka" class="form-control" placeholder=""--}}
-                     {{--name="jam_buka" id="jam_buka" >--}}
+                      {!! Form::text('jam_mulai',null,['class'=>'form-control','id'=>'jam_buka']) !!}
                    </div>
                    <div class="col-xs-6">
                      {!! Form::text('jam_selesai',null,['class'=>'form-control','id'=>'jam_tutup']) !!}
-                     {{--<input type="text" placeholder="Jam Tutup" class="form-control" placeholder=".col-xs-3"--}}
-                     {{--name="jam_tutup" id="jam_tutup" >--}}
-                   </div>
+                    </div>
                  </div>
               </div>
              {{--end input jam hari dan praktek--}}

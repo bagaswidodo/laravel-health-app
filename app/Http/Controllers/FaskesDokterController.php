@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Dokter;
 use App\Faskes;
 use Illuminate\Http\Request;
@@ -44,7 +45,18 @@ class FaskesDokterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validator = Validator::make($request->all(), [
+            'nama' => 'required|min:3'
+        ],[
+            'nama.required'  => 'Kolom Nama tidak boleh kosong',
+            'nama.min' => 'Panjang nama minimal 3 karakter'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('faskes/'.$request->faskes_id.'/dokter/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
         Dokter::create($request->all());
         return redirect('faskes/'.$request->faskes_id.'/dokter')->with('message','Dokter Berhasil ditambahkan');
     }

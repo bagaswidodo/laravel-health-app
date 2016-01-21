@@ -3,23 +3,12 @@
 @section('content')
 <h1>Tambahkan  Dokter Faskes {{ $f->nama_faskes }} </h1>
     <hr/>
-
-
-
     @include('errors.list')
     {!! Form::open(['url'=>'faskes/'.$f->faskes_id.'/dokter']) !!}
         {!! Form::hidden('faskes_id',$f->faskes_id) !!}
     @include('faskes.dokter._form',['submitButtonText'=>'Tambah Dokter Faskes'])
-
-
     {!! Form::close() !!}
-
-    <div class="alert alert-info">
-        <b>Improve</b> Map,Select 2 from API tipe,geocode lokasi,geolocation html,validation, add kolom bpjs support
-    </div>
-
 @stop
-
 
 @section('footer')
 

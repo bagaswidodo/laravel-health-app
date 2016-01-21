@@ -8,7 +8,7 @@ class Faskes extends Model
 {
     //
 
-    protected $fillable = ['nama_faskes','tipe_id','user_id','alamat','latitude','longitude','bpjs'];
+    protected $fillable = ['nama_faskes','tipe_id','user_id','alamat','latitude','longitude','web','phone','bpjs'];
     protected $primaryKey = 'faskes_id';
 
     //define relationship : is user has many articles?

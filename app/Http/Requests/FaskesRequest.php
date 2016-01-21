@@ -30,6 +30,8 @@ class FaskesRequest extends Request
             'alamat' => 'required', //or ['required|date]
             'latitude'=>'required',
             'longitude' =>'required',
+            'web' => 'url',
+            'phone' => 'regex:/(\(\d{4}+\)+ \d{3}+\-\d{3}+)/'
         ];
     }
 
@@ -39,8 +41,10 @@ class FaskesRequest extends Request
             'nama_faskes.required'  => 'Kolom Nama Faskes tidak boleh kosong',
             'tipe_id.required'      =>'Tipe Fasilitas kesehatan belum dipilih',
             'alamat.required'       => 'Alamat tidak boleh kosong',
-            'latitude.required'       => 'Latitude tidak boleh kosong',
+            'latitude.required'     => 'Latitude tidak boleh kosong',
             'longitude.required'    => 'Longitude tidak boleh kosong',
+            'web.url'               => 'alamat website tidak valid',
+            'phone.regex'           => 'Nomor Telpon tidak valid'
         ];
     }
 }

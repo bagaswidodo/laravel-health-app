@@ -15,14 +15,10 @@
      <button type="button" class="btn btn-default" onclick="geocodeLocation()">
         <span class="fa fa-compass"></span>Geocode Saya
      </button>
-      <div class="form-group">
-        <label>Website</label>
-        <input type="text" class="form-control" id="web" name="web" placeholder="http://">
-      </div>
-      <div class="form-group">
-              <label>Nomor Telpon</label>
-              <input type="text" class="form-control" id="telpon" name="telpon" placeholder="(0298) 123 456">
-            </div>    
+       <div class="form-group">
+            {!! Form::label('web', 'Alamat Website : ') !!}
+            {!! Form::text('web',null,['class'=>'form-control','placeholder'=>'http://www.example.com','id'=>'web']) !!}
+            </div>  
       </div>
 
     {{--rightsection--}}
@@ -53,6 +49,10 @@
         <span class="fa fa-compass"></span>Temukan Saya
       </button>
       <div id="map" style="height:250px;width:90%;">Map Here</div>
+      <div class="form-group">
+              {!! Form::label('phone', 'Nomor Telpon : ') !!}
+              {!! Form::text('phone',null,['class'=>'form-control','placeholder'=>'(0298) 123 4567','id'=>'phone']) !!}
+           </div>
       <div class="form-group"><br />
       <input type="checkbox" data-toggle="toggle" data-on="BPJS" data-off="Non BPJS"
         data-onstyle="info" data-offstyle="default" id="toggle-event" name="bpjs">

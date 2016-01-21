@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
+Route::get('/home',function(){
+	redirect('/faskes');
+});
+
 Route::get('lokasi','NearbyController@lokasi');
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('tipe', 'TipeController');
@@ -33,10 +37,6 @@ Route::controllers([
     'auth' => 'Auth\AuthController'
 ]);
 
-// Route::controllers([
-//     'auth' => 'Auth\AuthController',
-//     'password' => 'Auth\PasswordController'
-// ]);
 
 //find nearby
 Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}','NearbyController@activeHaversine');

@@ -29,10 +29,10 @@
                                array('class' => 'form-control')) !!}
 
                </div>
-              <div class="form-group">
-                  <label>Website</label>
-                  <input type="text" class="form-control" id="web" name="web" placeholder="http://">
-              </div>
+             <div class="form-group">
+            {!! Form::label('web', 'Alamat Website : ') !!}
+            {!! Form::text('web',null,['class'=>'form-control','placeholder'=>'http://www.example.com','id'=>'web']) !!}
+            </div>
              
         </div>
 
@@ -56,18 +56,15 @@
               </div>
           </div>
 
-          <div class="form-group">
-            {{--{!! Form::label('lokasi', 'Lokasi : ') !!}--}}
-            {{--{!! Form::text('lokasi',null,['class'=>'form-control','placeholder'=>'lat,lng','id'=>'location']) !!}--}}
-           </div>
+          
             <button type="button" class="btn btn-default" onclick="findMe()">
               <span class="fa fa-compass"></span>Temukan Saya
             </button>
             <div id="map" style="height:250px;width:90%;">Map Here</div>
             <div class="form-group">
-              <label>No. Telpon</label>
-              <input type="text" class="form-control" id="telpon" name="telpon" placeholder="(0298) 123 4567">
-            </div>
+              {!! Form::label('phone', 'Nomor Telpon : ') !!}
+              {!! Form::text('phone',null,['class'=>'form-control','placeholder'=>'(0298) 123 4567','id'=>'phone']) !!}
+           </div>
             <div class="form-group">
                <label>Melayani BPJS</label>
                <div class="row">

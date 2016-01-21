@@ -20,6 +20,8 @@ class CreateFaskesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->double('latitude',10,8);
             $table->double('longitude',10,6);
+            $table->string('web');
+            $table->string('phone');
             $table->integer('bpjs');
             $table->timestamps();
 

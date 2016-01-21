@@ -59,9 +59,43 @@ class FaskesOpenController extends Controller
      */
     public function store(Request $request)
     {
+        $id = $request->faskes_id;
+        $day = [
+            'Senin',
+            'Selasa',
+            'Rabu',
+            'Kamis',
+            'Jumat',
+            'Sabtu'
+        ];
+        $exist =   OFaskes::where('faskes_id',$id)
+              ->where('hari', $request->hari)->count();
 
-       // dd($request->all());
-        OFaskes::create($request->all());
+        if($exist > 0)
+        {
+            return redirect('faskes/' . $id . '/open/create')
+                    ->with('message', 'Jadwal pada hari '. $day[$request->hari] .' telah di inputkan !');
+        }
+        else
+        {
+            if(isset($request->jam_mulai_istirahat)){
+                $data = [
+                   'faskes_id' => $id,
+                   'hari' => $request->hari,
+                    'jam_buka' => $request->jam_buka,
+                    'jam_mulai_istirahat' => $request->jam_tutup,
+                    'jam_selesai_istirahat' => $request->jam_mulai_istirahat,
+                    'jam_tutup' => $request->jam_selesai_istirahat
+                ];
+         
+            }
+            else
+            {
+                $data = $request->all();
+            }            
+        }
+
+        OFaskes::create($data);
         return redirect('faskes/'.$request->faskes_id.'/open')->with('message','Berhasil ditambahkan');
 
     }

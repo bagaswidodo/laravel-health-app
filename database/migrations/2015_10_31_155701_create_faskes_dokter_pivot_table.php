@@ -20,6 +20,7 @@ class CreateFaskesDokterPivotTable extends Migration
             $table->integer('hari');
             $table->time('jam_mulai');
             $table->time('jam_selesai');
+            $table->timestamps();
 //            $table->primary(['dokter_id', 'faskse_id']);
         });
     }

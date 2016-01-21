@@ -2,48 +2,9 @@
 
 @section('content')
     <h1>{{ $faskes->nama_faskes }}</h1>
-    <h5>{{ $faskes->alamat }}</h5>
-
-        {{--<h3>Jam Kerja</h3>--}}
-         {{--<a href="{{ URL::to('faskes/' . $faskes->faskes_id . '/open/create') }}">--}}
-            {{--<button class="btn btn-default">Tambahkan Hari Jam Kerja</button>--}}
-         {{--</a>--}}
-        {{--<table class="table table-border table-stripe table-hover">--}}
-            {{--<tr>--}}
-                {{--<td>No</td>--}}
-                {{--<td>Hari</td>--}}
-                {{--<td>Jam Kerja</td>--}}
-                {{--<td>Aksi</td>--}}
-            {{--</tr>--}}
-            {{--<tr>--}}
-                 {{--<td>1</td>--}}
-                 {{--<td>Senin</td>--}}
-                 {{--<td>--}}
-                 {{--Poliklinik 08.00-12.00 <br/>--}}
-                 {{--UGD 24 Jam--}}
-                 {{--</td>--}}
-                 {{--<td>--}}
-                    {{--<button class="btn btn-info">Ubah </button>--}}
-                     {{--<button class="btn btn-danger">Hapus </button>--}}
-                 {{--</td>--}}
-             {{--</tr>--}}
-        {{--</table>--}}
+    <h5>Alamat : {{ $faskes->alamat }}</h5>
 
         <h3>Daftar Dokter</h3>
-         {{--{!! Form::select('dokter_list[]',$d,null,['class'=>'form-control','multiple','id'=>'dokter_list']) !!}--}}
-
-        {{--{!! Form::open(array('route' => array('faskes.dokter.store', $faskes->faskes_id))) !!}--}}
-
-         {{--{!! Form::open(array('url' => 'dokter')) !!}--}}
-         {{--{!! Form::text('nama',null,['class'=>'form-control', 'placeholder'=>'Select 2 multiple daftar dokter via ajax request']) !!}--}}
-        {{--<div class="row">--}}
-            {{--<div class="col-md-4">--}}
-                {{--{{ $faskes->faskes_id }}--}}
-                {{--{!! Form::submit('Simpan', ['class' => 'btn btn-default form-control']) !!}--}}
-            {{--</div>--}}
-
-        {{--</div>--}}
-        {{--{!! Form::close() !!}--}}
         <a href="{{ URL::to('faskes/' . $faskes->faskes_id . '/dokter/create') }}">
         <button class="btn btn-default">Tambah Dokter</button>
         </a>

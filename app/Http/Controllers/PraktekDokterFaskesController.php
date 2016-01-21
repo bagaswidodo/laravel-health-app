@@ -63,12 +63,14 @@ class PraktekDokterFaskesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'hari'          => 'required',
-            'jam_mulai'     => 'required',
-            'jam_selesai'   => 'required'
+            'jam_mulai'     => 'required|before:jam_selesai',
+            'jam_selesai'   => 'required|after:jam_mulai'
         ],[
             'hari.required'         => 'Field hari tidak boleh kosong',
             'jam_mulai.required'    => 'Field jam mulai praktik tidak boleh kosong',
-            'jam_selesai.required'  => 'Field jam selesai praktik tidak boleh kosong'
+            'jam_selesai.required'  => 'Field jam selesai praktik tidak boleh kosong',
+            'jam_mulai.before'      => 'Jam Mulai praktek tidak valid',
+            'jam_selesai.after'     => 'Jam Selesai Praktek tidak valid'
         ]);
 
         if ($validator->fails()) {
@@ -127,15 +129,34 @@ class PraktekDokterFaskesController extends Controller
      */
     public function update(Request $request, $faskes,$dokter,$hari)
     {
-
+        // dd($request->all());
         $praktekDokter = ODokter::findOrFail($dokter)->praktek($faskes,$hari);
-        $update['faskes_id'] = $request['faskes_id'];
-        $update['dokter_id'] = $request['dokter_id'];
-        $update['hari'] = $request['hari'];
-        $update['jam_mulai'] = $request['jam_mulai'];
-        $update['jam_selesai'] = $request['jam_selesai'];
-        $praktekDokter->update($update);
+        $validator = Validator::make($request->all(), [
+            'jam_mulai'     => 'required|before:jam_selesai',
+            'jam_selesai'   => 'required|after:jam_mulai'
+        ],[
+            'jam_mulai.required'    => 'Field jam mulai praktik tidak boleh kosong',
+            'jam_selesai.required'  => 'Field jam selesai praktik tidak boleh kosong',
+            'jam_mulai.before'      => 'Jam Mulai praktek tidak valid',
+            'jam_selesai.after'     => 'Jam Selesai Praktek tidak valid'
+        ]);
 
+        if ($validator->fails()) {
+             return redirect('/faskes/'.$faskes. '/dokter/' . $dokter . '/praktek/' . $hari . '/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+
+        $data = [
+           "faskes_id"      => $faskes,
+           "dokter_id"      => $dokter,
+           'hari'           => $hari,
+           "jam_mulai"      => $request->jam_mulai,
+           "jam_selesai"    => $request->jam_selesai
+
+        ];
+        $praktekDokter->update($data);
         return redirect('/faskes/'.$faskes. '/dokter/' . $dokter . '/praktek')->with('message','Data berhasil diubah');
     }
 

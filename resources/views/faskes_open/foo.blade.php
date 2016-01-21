@@ -1,1 +1,0 @@
-{{ $faskesOpen[0]->hari }}

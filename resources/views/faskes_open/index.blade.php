@@ -28,12 +28,16 @@
                         5 => 'Sabtu',
                         6 => 'Minggu'
                       );
+
         ?>
 
         @foreach($faskes->works as $fo)
              <tr>
                          <td> {{ $i  }}</td>
-                         <td><h5>{{ $hari[$fo->hari] }}</h5></td>
+                         <td>
+                            <h5>{{ $hari[$fo->hari] }}</h5>
+                            {{ $fo->hari}}
+                        </td>
                          <td>
                             <?php
                             if($fo->jam_mulai_istirahat == NULL)

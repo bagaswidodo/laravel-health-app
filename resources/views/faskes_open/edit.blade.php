@@ -9,7 +9,10 @@
     {{--{!! Form::open(['url'=>'faskes/'. $faskes[0]->faskes_id .'/open']) !!}--}}
     {!! Form::hidden('faskes_id',$faskes[0]->faskes_id)!!}
 
-    @include('faskes_open._form',['submitButtonText'=>'Ubah Jadwal Praktek'])
+    @include('faskes_open._form',[
+    'submitButtonText'=>'Ubah Jadwal Praktek',
+    'url' => 'faskes/'. $faskes[0]->faskes_id .'/open'
+    ])
 
 
     {!! Form::close() !!}

@@ -31,7 +31,7 @@ class FaskesOpenController extends Controller
     public function index($id)
     {
         $faskes = Faskes::find($id);
-        $faskes->works->toArray();
+        $faskes->works()->get();
         return view('faskes_open.index',compact('faskes'));
     }
 
@@ -47,7 +47,6 @@ class FaskesOpenController extends Controller
         $faskes->works->toArray();
 
         $day = $this->day;
-//        dd($faskes->toArray());
         return view('faskes_open.create',compact('faskes','day'));
     }
 
@@ -59,6 +58,7 @@ class FaskesOpenController extends Controller
      */
     public function store(Request $request)
     {
+        //how to solve invalid hadwal
         $id = $request->faskes_id;
         $day = [
             'Senin',
@@ -74,20 +74,20 @@ class FaskesOpenController extends Controller
         if($exist > 0)
         {
             return redirect('faskes/' . $id . '/open/create')
-                    ->with('message', 'Jadwal pada hari '. $day[$request->hari] .' telah di inputkan !');
+                    ->with('message', 'Jadwal pada hari '. $day[$request->hari] .' telah di inputkan !')
+                    ->withInput();
         }
         else
         {
             if(isset($request->jam_mulai_istirahat)){
                 $data = [
-                   'faskes_id' => $id,
-                   'hari' => $request->hari,
+                    'faskes_id' => $id,
+                    'hari' => $request->hari,
                     'jam_buka' => $request->jam_buka,
                     'jam_mulai_istirahat' => $request->jam_tutup,
                     'jam_selesai_istirahat' => $request->jam_mulai_istirahat,
                     'jam_tutup' => $request->jam_selesai_istirahat
                 ];
-         
             }
             else
             {
@@ -108,15 +108,8 @@ class FaskesOpenController extends Controller
      */
     public function show($id, $hari)
     {
-        //
-//        $faskesOpen = OFaskes::findOrFail($id);
-//        $faskesOpen = OFaskes::kodeFaskes($id)->hari($hari)->get();
         $faskesOpen = OFaskes::jadwal($id,$hari)->get();
         return view('faskes_open.foo',compact('faskesOpen'));
-
-
-       // $faskes = Faskes::findOrFail($id);//join better temporary use this
-//        return view('faskes_open.index',compact('faskesOpen'));
     }
 
     /**
@@ -130,8 +123,24 @@ class FaskesOpenController extends Controller
     {
 
         $faskes = OFaskes::kodeFaskes($id)->hari($hari)->get();
+        if($faskes[0]->jam_mulai_istirahat != NULL)
+        {
+            $tmp = [
+                $faskes[0]->jam_tutup,
+                $faskes[0]->jam_mulai_istirahat,
+                $faskes[0]->jam_selesai_istirahat
+            ];
+
+            $faskes[0]->jam_tutup = $tmp[1] ;
+            $faskes[0]->jam_selesai_istirahat =  $tmp[0];
+            $faskes[0]->jam_mulai_istirahat = $tmp[2];
+           
+        }
 
 
+        
+
+        // dd($data);
         return view('faskes_open/edit',compact('faskes'));
     }
 
@@ -145,13 +154,25 @@ class FaskesOpenController extends Controller
     public function update(Request $request, $id, $hari)
     {
         //
-        //dd($request['hari']);
-       // $faskesOpen = $request->all();
         $faskes = OFaskes::kodeFaskes($id)->hari($hari);
-        $faskesOpen['jam_buka'] = $request['jam_buka'];
-        $faskesOpen['jam_tutup'] = $request['jam_tutup'];
-        $faskesOpen['jam_mulai_istirahat'] = $request['jam_mulai_istirahat'];
-        $faskesOpen['jam_selesai_istirahat'] = $request['jam_selesai_istirahat'];
+        if(isset($request->jam_mulai_istirahat)){
+            $faskesOpen = [
+                'faskes_id' => $id,
+                'hari' => $request->hari,
+                'jam_buka' => $request->jam_buka,
+                'jam_mulai_istirahat' => $request->jam_tutup,
+                'jam_selesai_istirahat' => $request->jam_mulai_istirahat,
+                'jam_tutup' => $request->jam_selesai_istirahat
+            ];
+        }
+        else
+        {
+            $faskesOpen = $request->all();
+        }    
+        // $faskesOpen['jam_buka'] = $request['jam_buka'];
+        // $faskesOpen['jam_tutup'] = $request['jam_tutup'];
+        // $faskesOpen['jam_mulai_istirahat'] = $request['jam_mulai_istirahat'];
+        // $faskesOpen['jam_selesai_istirahat'] = $request['jam_selesai_istirahat'];
         $faskes->update($faskesOpen);
         return redirect('faskes/' . $id . '/open')->with('message', 'Data berhasil diUbah');
 

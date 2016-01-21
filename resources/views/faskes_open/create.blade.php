@@ -11,7 +11,8 @@
     {!! Form::open(['url'=>'faskes/'. $faskes->faskes_id .'/open']) !!}
     {!! Form::hidden('faskes_id',$faskes->faskes_id)!!}
 
-    @include('faskes_open._form',['submitButtonText'=>'Tambah Jadwal Praktek'])
+    @include('faskes_open._form',['submitButtonText'=>'Tambah Jadwal Praktek', 
+    'url'=>'faskes/'. $faskes->faskes_id .'/open'])
 
 
     {!! Form::close() !!}

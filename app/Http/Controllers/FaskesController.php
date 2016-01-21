@@ -56,9 +56,9 @@ class FaskesController extends Controller
      */
     public function store(FaskesRequest $request)
     {
-        dd($request->all());
-       // Faskes::create($request->all());
-        // return redirect('faskes')->with('message','Data Faskes di tambahkan');
+        // dd($request->all());
+       Faskes::create($request->all());
+        return redirect('faskes')->with('message','Data Faskes di tambahkan');
     }
 
     /**

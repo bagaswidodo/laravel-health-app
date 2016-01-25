@@ -10,6 +10,7 @@ use App\Faskes;
 use App\Tipe;
 use Auth;
 use Validator;
+use DB;
 
 class FaskesController extends Controller
 {
@@ -55,7 +56,9 @@ class FaskesController extends Controller
     public function store(FaskesRequest $request)
     {
         // dd($request->all());
+        // DB:: connection() -> enableQueryLog();
         Faskes::create($request->all());
+        // dd(DB:: getQueryLog());
         return redirect('faskes')->with('message','Data Faskes di tambahkan');
     }
 

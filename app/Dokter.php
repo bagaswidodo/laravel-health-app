@@ -24,7 +24,7 @@ class Dokter extends Model
 
     public function praktek()
     {
-        return $this->hasMany('App\ODokter');
+        return $this->hasMany('App\ODokter')->orderBy('hari','ASC');
     }
 
 

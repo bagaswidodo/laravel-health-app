@@ -115,8 +115,8 @@ class PraktekDokterFaskesController extends Controller
      */
     public function edit($faskes,$dokter,$hari)
     {
-        $p = ODokter::find($dokter)->praktek($faskes,$hari)->get();
-        $p->toArray();
+       
+        $p = ODokter::find($dokter)->praktek($faskes,$dokter,$hari)->get();
         return view('faskes.dokter.praktek.edit',compact('p'));
     }
 
@@ -130,7 +130,7 @@ class PraktekDokterFaskesController extends Controller
     public function update(Request $request, $faskes,$dokter,$hari)
     {
         // dd($request->all());
-        $praktekDokter = ODokter::findOrFail($dokter)->praktek($faskes,$hari);
+        $praktekDokter = ODokter::findOrFail($dokter)->praktek($faskes,$dokter,$hari);
         $validator = Validator::make($request->all(), [
             'jam_mulai'     => 'required|before:jam_selesai',
             'jam_selesai'   => 'required|after:jam_mulai'
@@ -168,7 +168,7 @@ class PraktekDokterFaskesController extends Controller
      */
     public function destroy($faskes,$dokter,$hari)
     {
-        ODokter::find($dokter)->praktek($faskes,$hari)->delete();
+        ODokter::find($dokter)->praktek($faskes,$dokter,$hari)->delete();
         return redirect('faskes/'.$faskes.'/dokter/'.$dokter.'/praktek')->with('message','Data Berhasil Dihapus');
     }
 }

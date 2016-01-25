@@ -5,6 +5,7 @@
 
     @include('errors.list')
 
+
     {!! Form::model($p[0],['method'=>'PATCH',
         'action'=> ['PraktekDokterFaskesController@update',$p[0]->faskes_id,$p[0]->dokter_id,$p[0]->hari]]) !!}
 
@@ -17,5 +18,4 @@
 
     {!! Form::close() !!}
 
-    <div class="alert alert-warning">Jika praktek sore otomatis checked dan data masuk. disable hari when update</div>
 @stop

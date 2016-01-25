@@ -16,9 +16,9 @@ class ODokter extends Model
         $this->belongsToMany('App\Dokter');
     }
 
-    public function scopePraktek($query,$faskes,$hari)
+    public function scopePraktek($query,$faskes,$dokter,$hari)
     {
-        return $query->where('faskes_id',$faskes)->where('hari',$hari);
+        return $query->where('faskes_id',$faskes)->where('dokter_id', $dokter)->where('hari',$hari);
     }
 
 

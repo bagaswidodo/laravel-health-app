@@ -15,7 +15,6 @@
     @include('faskes.dokter.praktek._form',
     ['submitButtonText'=>'Ubah Jadwal Praktek','url'=>'faskes/'. $p[0]->faskes_id .'/dokter/'. $p[0]->dokter_id . '/praktek'])
 
-
     {!! Form::close() !!}
 
 @stop

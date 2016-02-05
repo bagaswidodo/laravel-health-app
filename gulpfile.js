@@ -23,7 +23,7 @@ elixir(function(mix) {
 
 
     //frontend configuration
-    /*
+    
     mix.copy(bowerDir + '/bootstrap/css/bootstrap.min.css', vendorCssDir);
     mix.copy(bowerDir + '/flatty/main.css', vendorCssDir);
     mix.copy(bowerDir + '/jquery-ui/jquery-ui.min.css', vendorCssDir);
@@ -42,7 +42,7 @@ elixir(function(mix) {
     	'vendor/jquery-1.min.js',
     	'vendor/jquery-ui.min.js'
     	],'public/js/frontend.js');
-    */
+    
 
     //backend configuration
     

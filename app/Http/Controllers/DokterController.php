@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use App\Dokter;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -104,5 +105,11 @@ class DokterController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function jadwal($id)
+    {
+        $d = Dokter::findOrFail($id);
+        return response()->json(['nama_dokter' => $d->nama, 'data' => $d->praktek()->get()]);
     }
 }

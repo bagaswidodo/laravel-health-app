@@ -25,7 +25,7 @@
     <div class="col-md-6">
       <div class="form-group">
           <label>Lokasi</label>
-          <small>Validasi ini</small>
+          <!-- <small>Validasi ini</small> -->
           <div class="row">
             <div class="col-xs-6">
             {!! Form::text('latitude',null,['class'=>'form-control','id'=>'latitude','placeholder'=>'longitude. . .']) !!}
@@ -56,7 +56,7 @@
       <div class="form-group"><br />
       <input type="checkbox" data-toggle="toggle" data-on="BPJS" data-off="Non BPJS"
         data-onstyle="info" data-offstyle="default" id="toggle-event" name="bpjs">
-        <small>When edit if support it enabled</small>
+        <!-- <small>When edit if support it enabled</small> -->
       </div>
     </div>
     </div>
@@ -74,9 +74,9 @@
 <script>
 	var map;
 	function initialize() {
-		var latLng = new google.maps.LatLng( <?php echo empty($location) ? '-7.2669,110.4039' : $location; ?>  );
+		var latLng = new google.maps.LatLng( <?php echo (empty($f->latitude) && empty($f->longitude)) ? '-7.2669,110.4039' : $f->latitude . ',' . $f->longitude; ?>  );
 		var map = new google.maps.Map(document.getElementById('map'), {
-			zoom: 10,
+			zoom: 15,
 			center: latLng,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
@@ -105,7 +105,10 @@
 	{
 		lat = e.latLng.lat().toFixed(4);
 		lng = e.latLng.lng().toFixed(4);
-		document.getElementById('location').value = lat + "," + lng;
+		// document.getElementById('location').value = lat + "," + lng;
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
+
 	}
 </script>
 <script src="{{ asset('js/tools/geolocation.js') }}"></script>

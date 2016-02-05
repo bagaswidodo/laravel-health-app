@@ -49,7 +49,7 @@
        </div>
     @endif
 
-    <div class="alert alert-info"><strong>Imrpove : </strong> Pagination, </div>
+    <!-- <div class="alert alert-info"><strong>Imrpove : </strong> Pagination, </div> -->
 @endsection
 
 

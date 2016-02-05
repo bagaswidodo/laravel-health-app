@@ -18,8 +18,8 @@
                 <strong>{{ ucfirst(Auth::user()->nama_user) }} </strong> <span class="caret"></span>
             </a>
         	 <ul class="dropdown-menu">
-        	    <li><a href="#">Pengaturan Akun</a></li>
-        	    <li class="divider"></li>
+        	    <!-- <li><a href="#">Pengaturan Akun</a></li> -->
+        	    <!-- <li class="divider"></li> -->
         	    <li><a href="{{ url() }}/auth/logout">Logout</a></li>
         	 </ul>
         </li>

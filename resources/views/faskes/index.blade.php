@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-    <h1>Daftar Lyanan kesehatan</h1>
+    <h1>Daftar Layanan kesehatan</h1>
     <hr/>
     <br>
     <a href="{{url('faskes/create')}}">
@@ -57,8 +57,8 @@
             <div class="alert alert-warning">Data Tidak ditemukan</div>
         @endif
 
-            <div class="alert alert-info"><strong> Improe Feature : </strong>
-            Find, display with dropdown | spa angular</div>
+          <!--   <div class="alert alert-info"><strong> Improe Feature : </strong>
+            Find, display with dropdown | spa angular</div> -->
 
 @stop
 

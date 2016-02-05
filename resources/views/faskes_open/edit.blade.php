@@ -17,5 +17,5 @@
 
     {!! Form::close() !!}
 
-    <div class="alert alert-warning">Jika praktek sore otomatis checked dan data masuk. disable hari when update</div>
+    <!-- <div class="alert alert-warning">Jika praktek sore otomatis checked dan data masuk. disable hari when update</div> -->
 @stop

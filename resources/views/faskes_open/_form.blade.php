@@ -51,10 +51,10 @@
                     <button class="btn btn-danger form-control" type="button">Batal</button>
                </a>
            </div>
-    <div class="alert alert-info">
+  <!--   <div class="alert alert-info">
         <b>Improve</b>switch when there data not disabel input
     </div>
-
+ -->
 
 @section('footer')
 <link rel="stylesheet" href="{{ asset('vendor/jquery-timepicker/jquery.timepicker.css') }}"/>

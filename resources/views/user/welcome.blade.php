@@ -23,6 +23,30 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <style>
+      /*for typing animation*/
+    .typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+    </style>
   </head>
 
   <body>
@@ -50,14 +74,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					<h1>Temukan Layanan Kesehatan Sekitar Anda </h1>
+					<h2>Temukan <span class="element"></span> Sekitar Anda </h2>
 					<?php //echo form_open('health/find', array('class' => 'form-inline', 'role' => 'form')); ?>
 					<!--<form class="form-inline" role="form">-->
 					  <div class="form-group">
+            <span class="alert alert-danger" id="kesalahan" style="display:none"></span>
 					    <input type="text" class="form-control" id="lokasi" name="lokasi"
               placeholder="Lokasi . . ." required>
 					   <input class="form-control" type="hidden" id="koordinat"></input>
             </div>
+            
 					  <?php
 					//echo anchor('welcome/locations','<button type="submit" class="btn btn-warning btn-lg">Temukan</button>');
 					  ?>
@@ -94,6 +120,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
 
   <script src="js/frontend.js"></script>
+  <script src="{{ asset('js/lib/typed.min.js') }}"></script>
   <!-- <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}" type="text/css" media="all" /> -->
 
     <script type='text/javascript'>
@@ -134,7 +161,9 @@
 
         if(koordinat == "")
         {
-            alert('Empty');
+            // alert('Empty');
+            $('#kesalahan').show();
+            $('#kesalahan').html('Anda belum memilih lokasi')
         }
         else
         {
@@ -154,7 +183,7 @@
               koordinat = position.coords.latitude + "," + position.coords.longitude;
               window.location = path + "/" + koordinat;
 
-            }, showError);
+            }, showError, {timeout: 5000});
         } else {
             alert("Geolocation is not supported by this browser.");
             history.back();
@@ -175,21 +204,32 @@
     function showError(error) {
         switch(error.code) {
             case error.PERMISSION_DENIED:
-                alert("User denied the request for Geolocation.");
-                break;
+                alert("Pengguna tidak mengijinkan mengakses lokasi");
+            break;
             case error.POSITION_UNAVAILABLE:
-                x.innerHTML = alert("Location information is unavailable.");
-                break;
+                alert("Lokasi informasi tidak tersedia.");
+                // x.innerHTML = alert("Location information is unavailable.");
+            break;
             case error.TIMEOUT:
-                x.innerHTML = alert("The request to get user location timed out.");
-                break;
+                alert("Permintaan lokasi pengguna telah habis");
+                // x.innerHTML = alert("The request to get user location timed out.");
+            break;
             case error.UNKNOWN_ERROR:
-                x.innerHTML = alert("An unknown error occurred.");
-                break;
+                alert("Ooops, Sepertinya terjadi kesalahan");
+                // x.innerHTML = alert("An unknown error occurred.");
+            break;
         }
     }
 
 
+  </script>
+  <script>
+  $(function(){
+        $(".element").typed({
+            strings: ["Rumah Sakit","Puskesmas","Klinik", "Dokter Umum", "Dokter Gigi", "Layanan Kesehatan"],
+            typeSpeed: 0
+        });
+    });
   </script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
   </body>

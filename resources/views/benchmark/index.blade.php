@@ -4,7 +4,8 @@
 <div class="container">
 	<div class="col-md-6">
 		Haversine
-		Waktu eksekusi {{ $haversine['time_elapsed']}}
+		Waktu eksekusi {{ number_format($haversine['time_elapsed'],5,'.','') }}
+		<p>Memory Usage {{ $haversine['memory_usage'] }}</p>
 		<table class="table table-bordered table-striped">
 			<tr>
 				<td>No</td>
@@ -16,7 +17,7 @@
 			<tr>
 				<td>{{ $no }}</td>
 				<td>{{ $v->nama_faskes }}</td>
-				<td>{{ $v->jarak }}</td>
+				<td>{{ number_format($v->jarak,5,'.','') }}</td>
 			</tr>
 			<?php $no++; ?>
 			@endforeach
@@ -24,7 +25,9 @@
 	</div>
 	<div class="col-md-6">
 		Euclidean
-		Waktu eksekusi {{ $euclidean['time_elapsed']}}
+		Waktu eksekusi {{ number_format($euclidean['time_elapsed'],5,'.','') }}
+		<p>Memory Usage {{ $euclidean['memory_usage'] }}</p>
+
 		<table class="table table-bordered table-striped">
 			<tr>
 				<td>No</td>
@@ -36,7 +39,7 @@
 			<tr>
 				<td>{{ $no }}</td>
 				<td>{{ $v->nama_faskes }}</td>
-				<td>{{ $v->jarak }}</td>
+				<td>{{ number_format($v->jarak,5,'.','') }}</td>
 			</tr>
 			<?php $no++; ?>
 			@endforeach

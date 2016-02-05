@@ -18,7 +18,7 @@
     <script src="{{ asset('js/backend.js') }}"></script>
     <script>
         //to show modal
-        $('#flash-overlay-modal').modal();
+        // $('#flash-overlay-modal').modal();
 
    // $('div.alert').delay(3000).slideUp(300);
     </script>

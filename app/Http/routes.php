@@ -12,8 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('user.welcome');
+    // return view('user.welcome');
+	return view('material.home');
+    
 });
+
+Route::get('material',function(){
+	return view('material.home');
+});
+
 
 Route::get('/home',function(){
 	redirect('/faskes');
@@ -47,8 +54,29 @@ Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}/filter/{tipe
 Route::get('nearby/haversine/{latitude}/{longitude}/{jarak?}/filter/{tipe}','NearbyController@filterHaversine');
 
 Route::get('nearby/{location}/{jarak?}','NearbyController@location');
+Route::get('material/nearby/{location}/{jarak?}','NearbyController@locationMaterial');
+Route::get('material/detail/{latlng}/{faskes_id}','NearbyController@materialDetail');
+
+
+
 Route::get('poi/detail/{latlng}/{faskes_id}','NearbyController@detail');
 Route::get('nearby/euclidean/active/{latitude}/{longitude}/{jarak?}','NearbyController@activeEuclidean');
 Route::get('nearby/euclidean/{latitude}/{longitude}/{jarak?}','NearbyController@euclidean');
 
-Route::get('benchmark/{latitude}/{longitude}','BenchmarkController@all');
+Route::get('benchmark/all/{latitude}/{longitude}','BenchmarkController@all');
+Route::get('benchmark/active/{latitude}/{longitude}/{jarak?}','BenchmarkController@allOpen');
+
+//api
+Route::group(['prefix' => 'api'], function () {
+	Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}','NearbyController@activeHaversine');
+	Route::get('nearby/haversine/{latitude}/{longitude}/{jarak?}','NearbyController@haversine');
+
+	//find nearby filter
+	Route::get('nearby/haversine/active/{latitude}/{longitude}/{jarak?}/filter/{tipe}','NearbyController@filterActiveHaversine');
+	Route::get('nearby/haversine/{latitude}/{longitude}/{jarak?}/filter/{tipe}','NearbyController@filterHaversine');
+
+	Route::get('all/{latitude}/{longitude}','BenchmarkApi@allApi');
+	Route::get('active/{latitude}/{longitude}/{jarak?}','BenchmarkApi@allOpenApi');
+
+	Route::get('dokter/praktek/{id}','DokterController@jadwal');
+});

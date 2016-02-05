@@ -83,8 +83,6 @@
 var path = 'material/nearby';
     $('#temukan').click(function(){
         var koordinat = $('#koordinat').val();
-        console.log(koordinat);
-
         if(koordinat == "")
         {
             // alert('Empty');

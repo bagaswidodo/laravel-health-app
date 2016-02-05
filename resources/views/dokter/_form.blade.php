@@ -19,9 +19,7 @@
     <div class="form-group">
         {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
     </div>
-    <div class="alert alert-info">
-        <b>Improve</b> Validation, phone number get faskes by id request
-    </div>
+
 
 
 @section('footer')

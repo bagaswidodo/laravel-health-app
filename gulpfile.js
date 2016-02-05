@@ -45,7 +45,7 @@ elixir(function(mix) {
     */
 
     //backend configuration
-    /*
+    
     mix.copy(bowerDir + '/bootstrap/css/bootstrap.min.css', vendorCssDir);
     mix.copy(bowerDir + '/select2/css/select2.min.css', vendorCssDir);
     mix.copy(bowerDir + '/bootstrap-toggle/bootstrap-toggle.min.css', vendorCssDir);
@@ -68,7 +68,7 @@ elixir(function(mix) {
         'vendor/select2.min.js',
         'vendor/bootstrap-toggle.min.js'
         ],'public/js/backend.js');
-*/
+
 
     // material
     var materialCssDir = 'material/';

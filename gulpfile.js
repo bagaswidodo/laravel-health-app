@@ -70,4 +70,16 @@ elixir(function(mix) {
         ],'public/js/backend.js');
 */
 
+    // material
+    var materialCssDir = 'material/';
+    mix.styles([
+            materialCssDir + 'materialize.min.css',
+            materialCssDir + 'style.css'
+        ], 'public/css/material.css');
+
+    mix.scripts([
+        'material/materialize.min.js',
+        'material/init.js'
+        ], 'public/js/material.js');
+
 });

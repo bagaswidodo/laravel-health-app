@@ -22,7 +22,6 @@ class BenchmarkController extends Controller
         $hendMemory = memory_get_usage() - $hbeginMemory;
         $haversine = ['data' =>$hdata,'time_elapsed' =>$htime_elapsed, 'memory_usage' => $hendMemory];
 
-
         //euclidean
         $estart = microtime(true);
         $ebeginMemory = memory_get_usage();
@@ -32,7 +31,6 @@ class BenchmarkController extends Controller
         $etime_elapsed = microtime(true) - $estart;
         $eMemory = memory_get_usage() - $hbeginMemory;
         $euclidean = ['data' => $edata,'time_elapsed' => $etime_elapsed, 'memory_usage' => $eMemory];
-
 
         // return response()->json(compact('haversine','euclidean'));
         return view('benchmark.index',compact('haversine','euclidean'));
@@ -72,10 +70,5 @@ class BenchmarkController extends Controller
 
         return view('benchmark.index',compact('haversine','euclidean'));
         // return response()->json(compact('haversine','euclidean'));//API
-
-
-    }
-
-    
-
+    } 
 }

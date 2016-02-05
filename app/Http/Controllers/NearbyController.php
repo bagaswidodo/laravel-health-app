@@ -55,7 +55,7 @@ class NearbyController extends Controller
 		    COS(abs('.$longitude.') * pi()/180 ) * COS(abs(latitude) * pi()/180)
 		* POWER(SIN((longitude - '.$longitude.') * pi()/180 / 2), 2) ))) as jarak
 		from faskes f having jarak < ' . $jarak. ' ORDER BY jarak ASC');
-         $time_elapsed = microtime(true) - $start;
+        $time_elapsed = microtime(true) - $start;
 
           return response()->json(['distance' => $jarak, 'waktu' => $time_elapsed ,'data' => $data]);
     }
@@ -126,14 +126,11 @@ class NearbyController extends Controller
               AND TIME(NOW()) NOT BETWEEN fo.jam_mulai_istirahat and fo.jam_selesai_istirahat
                having jarak < ' . $jarak . ' ORDER BY jarak ASC');
             $elapsed_time = microtime(true) - $start;
-
             $distance = $jarak;
             $waktu = $elapsed_time;
-            // return view('material.nearby');
 
             return view('material.sekitar', compact('nearby','location','distance','waktu'));
             // return view('material.nearby', compact('nearby','location','distance','waktu'));
-
     }
 
     public function detail($latlng,$faskes_id){

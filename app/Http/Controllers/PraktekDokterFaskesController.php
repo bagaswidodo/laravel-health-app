@@ -29,15 +29,10 @@ class PraktekDokterFaskesController extends Controller
      */
     public function index($faskes, $dokter)
     {
-//        $allJadwal = ODokter::allJadwal($faskes, $dokter)->get();
         $jadwal = Dokter::find($dokter);
         $jadwal->praktek->toArray();
 
         $d = $this->day;
-
-//       $jadwal = Dokter::find($dokter)->praktek->where('hari',1)->toArray();
-
-
         return view('faskes.dokter.praktek.index',compact('jadwal','d'));
     }
 
@@ -129,7 +124,6 @@ class PraktekDokterFaskesController extends Controller
      */
     public function update(Request $request, $faskes,$dokter,$hari)
     {
-        // dd($request->all());
         $praktekDokter = ODokter::findOrFail($dokter)->praktek($faskes,$dokter,$hari);
         $validator = Validator::make($request->all(), [
             'jam_mulai'     => 'required|before:jam_selesai',
@@ -146,7 +140,6 @@ class PraktekDokterFaskesController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
 
         $data = [
            "faskes_id"      => $faskes,

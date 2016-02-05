@@ -43,7 +43,6 @@ class FaskesOpenController extends Controller
      */
     public function create($id)
     {
-        //
         $faskes = Faskes::find($id);
         $faskes->works->toArray();
 
@@ -162,7 +161,6 @@ class FaskesOpenController extends Controller
             $faskes[0]->jam_mulai_istirahat = $tmp[2];
            
         }
-        // dd($data);
         return view('faskes_open/edit',compact('faskes'));
     }
 
@@ -214,13 +212,11 @@ class FaskesOpenController extends Controller
         }
         else
         {
-            // $faskesOpen = $request->all();
             $faskesOpen = [
                   "faskes_id" => $id,
                   "jam_buka" => $request->jam_buka,
                   "jam_tutup" => $request->jam_tutup
             ];
-            // dd($request->all());
         }    
         $faskes->update($faskesOpen);
         return redirect('faskes/' . $id . '/open')->with('message', 'Data berhasil diUbah');
@@ -235,7 +231,6 @@ class FaskesOpenController extends Controller
      */
     public function destroy($id, $hari)
     {
-        //
          OFaskes::kodeFaskes($id)->hari($hari)->delete();
         return redirect('faskes/' . $id . '/open')->with('message', 'Data berhasil diUbah');
 

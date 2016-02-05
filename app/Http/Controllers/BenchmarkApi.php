@@ -22,7 +22,6 @@ class BenchmarkApi extends Controller
         $hendMemory = memory_get_usage() - $hbeginMemory;
         $haversine = ['data' =>$hdata,'time_elapsed' =>$htime_elapsed, 'memory_usage' => $hendMemory];
 
-
         //euclidean
         $estart = microtime(true);
         $ebeginMemory = memory_get_usage();
@@ -33,9 +32,8 @@ class BenchmarkApi extends Controller
         $eMemory = memory_get_usage() - $hbeginMemory;
         $euclidean = ['data' => $edata,'time_elapsed' => $etime_elapsed, 'memory_usage' => $eMemory];
 
-
-        return response()->json(compact('haversine','euclidean'));
-        // return view('benchmark.index',compact('haversine','euclidean'));
+        return response()->json(compact('haversine','euclidean'));//return to JSON data
+        // return view('benchmark.index',compact('haversine','euclidean')); //return to a page
     }
 
     function allOpenApi($latitude,$longitude,$jarak=1)
@@ -56,7 +54,6 @@ class BenchmarkApi extends Controller
         $hendMemory = memory_get_usage() - $hbeginMemory;
         $haversine = ['data' =>$hdata,'time_elapsed' =>$htime_elapsed, 'memory_usage' => $hendMemory];
 
-
         //euclidean
         $estart = microtime(true);
         $ebeginMemory = memory_get_usage();
@@ -70,8 +67,8 @@ class BenchmarkApi extends Controller
         $eMemory = memory_get_usage() - $hbeginMemory;
         $euclidean = ['data' => $edata,'time_elapsed' => $etime_elapsed, 'memory_usage' => $eMemory];
 
-        // return view('benchmark.index',compact('haversine','euclidean'));
-        return response()->json(compact('haversine','euclidean'));//API
+        // return view('benchmark.index',compact('haversine','euclidean'));//return to page
+        return response()->json(compact('haversine','euclidean'));//return to JSON data
 
 
     }

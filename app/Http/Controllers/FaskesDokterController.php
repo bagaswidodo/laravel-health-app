@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Dokter;
 use App\Faskes;
-use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class FaskesDokterController extends Controller
@@ -81,9 +81,7 @@ class FaskesDokterController extends Controller
      */
     public function edit($faskes, $id)
     {
-
         $dokter = Dokter::findOrFail($id);
-//        dd($dokter->toArray());
         return view('faskes.dokter.edit',compact('dokter'));
     }
 
@@ -96,13 +94,10 @@ class FaskesDokterController extends Controller
      */
     public function update(Request $request, $faskes, $id)
     {
-
         $ubahDokter = $request->all();
         $dokter = Dokter::findOrFail($id);
         $dokter->update($ubahDokter);
         return redirect('faskes/'.$request->faskes_id.'/dokter')->with('message','Dokter Berhasil ditambahkan');
-
-
     }
 
     /**
@@ -113,9 +108,7 @@ class FaskesDokterController extends Controller
      */
     public function destroy($faskes, $id)
     {
-        //
         Dokter::findOrFail($id)->delete();
         return redirect('faskes/'.$faskes.'/dokter')->with('message','Dokter Berhasil ditambahkan');
-
     }
 }

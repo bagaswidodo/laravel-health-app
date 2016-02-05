@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FaskesRequest;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Faskes;
-use App\Tipe;
+use DB;
 use Auth;
 use Validator;
-use DB;
+use App\Faskes;
+use App\Tipe;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Requests\FaskesRequest;
+use App\Http\Controllers\Controller;
 
 class FaskesController extends Controller
 {
@@ -31,7 +31,6 @@ class FaskesController extends Controller
      */
     public function index()
     {
-        //
         $f = Auth::user()->faskes()->paginate(10);
        return view('faskes.index',compact('f'));
     }
@@ -55,10 +54,7 @@ class FaskesController extends Controller
      */
     public function store(FaskesRequest $request)
     {
-        // dd($request->all());
-        // DB:: connection() -> enableQueryLog();
         Faskes::create($request->all());
-        // dd(DB:: getQueryLog());
         return redirect('faskes')->with('message','Data Faskes di tambahkan');
     }
 
@@ -82,7 +78,6 @@ class FaskesController extends Controller
     public function edit($id)
     {
         $f = Faskes::find($id);
-       // $t = Tipe::lists('deskripsi','tipe_id');
         $t = $this->faskesTipe;
        return view('faskes.edit',compact('f','t'));
     }
@@ -123,7 +118,6 @@ class FaskesController extends Controller
         $f = Faskes::find($id);
         $f->update($faskesUpdate);
         return redirect('faskes')->with('message','Data Faskes Berhasil Di Ubah');
-
         //research in new way because it relation :(
     }
 
@@ -135,9 +129,6 @@ class FaskesController extends Controller
      */
     public function destroy($id)
     {
-//        Pegawai::find($id)->delete();
-//        return redirect('pegawai')->with('message', 'Data berhasil dihapus!');
-
         Faskes::find($id)->delete();
         return redirect('faskes')->with('message','Data Berhasil dihapus');
     }

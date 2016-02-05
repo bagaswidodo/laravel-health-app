@@ -65,7 +65,6 @@ class TipeController extends Controller
     {
         //
         $t = Tipe::findOrFail($id);
-
         return view('tipe.edit',compact('t'));
     }
 

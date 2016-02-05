@@ -13,5 +13,8 @@ find nearby health facility location even open/close.
 * run <code>npm install -g gulp</code>
 * run <code>npm install</code>
 * run <code>gulp</code> or <code>gulp -- production</code>
+* copy or rename .env.example to .env
+* configure .env to database credentials
+* run <code>php artisan migrate --seed </code> to migrate schema and seed sample data
 * run <code> php artisan serve </code>
 * open app in favourite browser

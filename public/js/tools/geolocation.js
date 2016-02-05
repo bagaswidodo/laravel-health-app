@@ -67,4 +67,62 @@ function geocodeLocation(){
 
   return false;
 }
-//# sourceMappingURL=geolocation.js.map
+
+
+// jquery usage
+/*
+  buat div dengan id temukan untuk mencari layanan berdasarkan lokasi dari autocomplete
+  buat div dengan id temukan_geo untuk mencari laynan berdasarkan lokasi menggunakan hmtml 5 geolocation
+
+*/
+  $('#temukan').click(function(){
+        var koordinat = $('#koordinat').val();
+        if(koordinat == "")
+        {
+            // $('#kesalahan').html('Anda belum memilih lokasi')
+            alert('anda belum memilih lokasi');
+        }
+        else
+        {
+           window.location = path + "/" + koordinat;
+        }
+
+  });
+$('#temukan_geo').click(function(){
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function showPosition(position)
+        {
+          koordinat = position.coords.latitude + "," + position.coords.longitude;
+          console.log(koordinat);
+          window.location = path + "/" + koordinat;
+        }, showError, {timeout: 5000});
+    } else {
+        alert("Geolocation is not supported by this browser.");
+        history.back();
+    }
+});//end temukan geo click function
+//additional function
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            alert("Pengguna tidak mengijinkan mengakses lokasi");
+        break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Lokasi informasi tidak tersedia.");
+            // x.innerHTML = alert("Location information is unavailable.");
+        break;
+        case error.TIMEOUT:
+            alert("Permintaan lokasi pengguna telah habis");
+            // x.innerHTML = alert("The request to get user location timed out.");
+        break;
+        case error.UNKNOWN_ERROR:
+            alert("Ooops, Sepertinya terjadi kesalahan");
+            // x.innerHTML = alert("An unknown error occurred.");
+        break;
+    }
+}

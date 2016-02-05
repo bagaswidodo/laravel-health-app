@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 
 class OFaskes extends Model
@@ -11,10 +10,6 @@ class OFaskes extends Model
     protected $fillable = ['faskes_id','hari','jam_buka','jam_tutup','jam_mulai_istirahat','jam_selesai_istirahat'];
     protected $primaryKey = 'faskes_id';
 
-    //
-//    public function articles(){
-//        return $this->belongsToMany('App\Article');//,'tags_pivot');
-//    }
 
     public function faskes(){
         return $this->belongsTo('App\Faskes');

@@ -63,7 +63,6 @@
                 function(data){
                     if(data.response ==true){
                       add(data.message);
-
                     }
                 },
                 });

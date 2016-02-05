@@ -101,13 +101,9 @@ $latlng = explode(",",$location);
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script>
 $(document).ready(function(){
-
         geocodeLocation();
-   });
+});
 	function geocodeLocation(){
-    //var lokasi = document.getElementById('location').value;
-    // var lat = $('#latitude').val();
-    // var lng = $('#longitude').val();
 
     var geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng({{$latlng[0]}}, {{$latlng[1]}});

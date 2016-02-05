@@ -9,7 +9,6 @@
 			  <div class="panel-body">
 			  <!-- modal-config -->
 			  <!-- Large modal -->
-
 				Lokasi anda : {!! Form::text('lokasi',null,['class'=>'form-control','id'=>'lokasi']) !!}
 				<input class="form-control" type="hidden" id="koordinat"></input>
 						<button id="temukan_geo" class="btn btn-default">Temukan By Geolocation</button>
@@ -48,8 +47,7 @@
 				    </div><!-- modal content -->
 				  </div>
 				</div>
-			  <!-- end modal config -->
-			  
+			  <!-- end modal config --> 
 			  </div>
 			</div>
 		</div>
@@ -137,10 +135,6 @@
 							<td>Waktu Eksekusi query</td>
 							<td>:<span id="haversinetime"></span> detik</td>
 						</tr>
-						<!-- <tr>
-							<td>Memory Terpakai</td>
-							<td>:<span id="haversinememory"></span>KB</td>
-						</tr> -->
 						<tr>
 							<td>Jumlah faskes</td>
 							<td>:<span id="haversinefaskes"></span></td>
@@ -196,9 +190,7 @@
 							<td>Jarak</td>
 						</tr>
 						@endfor
-			       </table> 
-
-				       
+			       </table>    
 				</div>
       		</div>
       </div>
@@ -206,7 +198,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -216,130 +207,15 @@
 
 @section('footer')
 <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
-<script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
+<script>
+var lat = -7.33;
+var lng = 110.5;
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('vendor/mustache/mustache.min.js') }}"></script>
 <script src="{{ asset('js/benchmark.js') }}"></script>
 <script src="{{ asset('js/geolocation.js') }}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script>
-
-$('#gis').click(function(){
-	// $('#myModal').modal('show')	;
-	$('#myModal').modal('show');
-	// alert("show modal");
-});
-
-$('#temukan').click(function(){
-	// console.log(restUrl);
-
-	$('#euclidean').html("");
-	$('#haversine').html("");
-
-	var koordinat = $('#koordinat').val();
-	var latlng = koordinat.split(",");
-	var restUrl = '/api/active/'+latlng[0]+'/'+latlng[1];
-	
-	getApiData(restUrl);
-
-});
-
-function getApiData(restUrl)
-{
-	$.ajax({
-              type:'GET',
-              url: restUrl,
-              beforeSend: function() {
-			     $('#loader').show();
-			     $('#loaderh').show();
-			  },
-			  complete: function(){
-			     $('#loader').hide();
-			     $('#loaderh').hide();
-			  },
-              success:function(locations)
-              {
-              	// console.log(locations);
-              	$("#result").css("display", "block");
-                $.each(locations['euclidean']['data'], function(i, location){
-                  $('#euclidean').append("<tr><td>"+(i+1)+"</td><td>" 
-                      	+ location.nama_faskes 
-                      	+ "</td><td>" 
-                      	+ location.jarak.toFixed(5)
-                      	+"</td></tr>");
-                });//end each
-                $('#euclideanmemory').html(locations['euclidean']['memory_usage']);
-                $('#euclideantime').html(locations['euclidean']['time_elapsed'].toFixed(5));
-                $('#euclideanfaskes').html(locations['euclidean']['data'].length);
-
-                $.each(locations['haversine']['data'], function(i, location){
-                      $('#haversine').append("<tr><td>"+(i+1)+"</td><td>" 
-                      	+ location.nama_faskes 
-                      	+ "</td><td>" 
-                      	+ location.jarak.toFixed(5)
-                      	+"</td></tr>");
-	             });
-                $('#haversinememory').html(locations['haversine']['memory_usage']);
-                $('#haversinetime').html(locations['haversine']['time_elapsed'].toFixed(5));
-                $('#haversinefaskes').html(locations['haversine']['data'].length);
-
-              },
-              error:function(){
-                  alert('oops something wrong');
-              },
-
-         });
-}
-
-
-
-
-/* GMAP */
-//map script
-function geocodeLocation(lat,lng) {
-	  var geocoder = new google.maps.Geocoder();
-	  var latlng = new google.maps.LatLng(lat, lng);
-	  geocoder.geocode({'latLng': latlng}, function(results, status) {
-
-		if (status == google.maps.GeocoderStatus.OK) {
-			
-		
-		  //if (results[1]) {
-		    document.getElementById('terpilih').innerHTML = results[0].formatted_address;
-		    document.getElementById('lokasi').value = results[0].formatted_address;
-		  //} else {
-		   // alert('No results found');
-		  //}
-		} else {
-		  alert('Geocoder failed due to: ' + status);
-		}
-	});
-}
-
-//map init
-//init map
-var map;
-function initialize() {
-
-
-	var latLng = new google.maps.LatLng( -7.2669,110.4039  );
-	var map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 10,
-		center: latLng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
-
-	var marker = new google.maps.Marker({
-		position: latLng,
-		title: 'Lokasi',
-		map: map,
-	});
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-/*-------------- END GMAP ----------------------------- */
-</script>
+<script src="{{ asset('js/tools/gmap.js') }}"></script>
+<script src="{{ asset('js/admin.js') }}"></script>
 @stop

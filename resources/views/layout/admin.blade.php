@@ -19,8 +19,7 @@
     <script>
         //to show modal
         // $('#flash-overlay-modal').modal();
-
-   // $('div.alert').delay(3000).slideUp(300);
+        // $('div.alert').delay(3000).slideUp(300);
     </script>
 
     @yield('footer')
